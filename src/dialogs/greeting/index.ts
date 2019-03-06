@@ -41,6 +41,7 @@ export class GreetingDialog extends ComponentDialog {
         if (value !== 'Yes') {
             return VALIDATION_FAILED;
         } else {
+            await validatorContext.context.sendActivity("Please agree to legal terms before continuing");
             return VALIDATION_SUCCEEDED;
         }
     }
