@@ -57,5 +57,6 @@ export class MyBot {
                 }
             }
         }
+        await this.conversationState.saveChanges(context, false);
     }
 }

@@ -30,18 +30,17 @@ export class GreetingDialog extends ComponentDialog {
     private promptLegalAgreement = async (step: WaterfallStepContext) => {
         return await step.prompt(LEGAL_AGREEMENT_PROMPT, {
             prompt: 'Do you agree?',
-            retryPrompt: 'Please select an option from the list',
+            retryPrompt: 'You must agree to the legal agreement so I can help you.',
             choices: ['Yes', 'No']
         });
     }
 
     private validateLegalAgreement = async (validatorContext: PromptValidatorContext<FoundChoice>) => {
         const { value } = validatorContext.recognized.value;
-        console.log('what value', value);
         if (value !== 'Yes') {
             return VALIDATION_FAILED;
         } else {
-            await validatorContext.context.sendActivity("Please agree to legal terms before continuing");
+            //TODO: proceed to menu...
             return VALIDATION_SUCCEEDED;
         }
     }
