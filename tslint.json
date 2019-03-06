@@ -8,7 +8,10 @@
         "max-line-length": [false],
         "no-console": [false, "log", "error"],
         "quotemark": [true, "single"],
-        "no-var-requires": false
+        "no-var-requires": false,
+        "no-trailing-whitespace": false,
+        "trailing-comma": false,
+        "object-literal-sort-keys": false
     },
     "rulesDirectory": []
 }

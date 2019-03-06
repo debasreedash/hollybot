@@ -8,7 +8,7 @@
       "spacing": "medium",
       "size": "default",
       "weight": "bolder",
-      "text": "Hi, I am Holly!",
+      "text": "Hi, I am Holly! I'm here to help you with your health and wellness concerns.",
       "wrap": true,
       "maxLines": 0
     },
@@ -16,7 +16,7 @@
       "type": "TextBlock",
       "size": "default",
       "isSubtle": "yes",
-      "text": "",
+      "text": "Just keep in mind that I am not here to replace your doctor, so if this is an emergency please call 911.",
       "wrap": true,
       "maxLines": 0
     }
