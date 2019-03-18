@@ -7,10 +7,11 @@ import * as restify from 'restify';
 
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
-import { BotFrameworkAdapter, ConversationState, MemoryStorage,  } from 'botbuilder';
+import { BotFrameworkAdapter, ConversationState, MemoryStorage } from 'botbuilder';
 
 // Import required bot configuration.
-import { BotConfiguration, IEndpointService } from 'botframework-config';
+import { BotConfiguration, IEndpointService, IQnAService } from 'botframework-config';
+import { QnAMaker } from 'botbuilder-ai';
 
 // This bot's main dialog.
 import { MyBot } from './bot';
@@ -27,6 +28,7 @@ const DEV_ENVIRONMENT = 'development';
 // bot name as defined in .bot file
 // See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.
 const BOT_CONFIGURATION = (process.env.NODE_ENV || DEV_ENVIRONMENT);
+const QNA_CONFIGURATION = 'qnamakerService';
 
 // Create HTTP server.
 const server = restify.createServer();
@@ -53,6 +55,13 @@ try {
 
 // Get bot endpoint configuration by service name
 const endpointConfig = botConfig.findServiceByNameOrId(BOT_CONFIGURATION) as IEndpointService;
+const qnaConfig = botConfig.findServiceByNameOrId(QNA_CONFIGURATION) as IQnAService;
+
+const qnaEndpointSettings = {
+    knowledgeBaseId: qnaConfig.kbId,
+    endpointKey: qnaConfig.endpointKey,
+    host: qnaConfig.hostname
+};
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about .bot file its use and bot configuration.
@@ -73,7 +82,7 @@ const memoryStorage = new MemoryStorage();
 const conversationState = new ConversationState(memoryStorage);
 
 // Create the main dialog.
-const myBot = new MyBot(conversationState);
+const myBot = new MyBot(conversationState, qnaEndpointSettings, {});
 
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {

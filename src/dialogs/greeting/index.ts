@@ -15,7 +15,8 @@ export class GreetingDialog extends ComponentDialog {
 
         this.addDialog(new WaterfallDialog(LEGAL_AGREEMENT_DIALOG, [
             this.displayLegalAgreement.bind(this),
-            this.promptLegalAgreement.bind(this)
+            this.promptLegalAgreement.bind(this),
+            this.routeToMenu.bind(this)
         ]));
 
         this.addDialog(new ChoicePrompt(LEGAL_AGREEMENT_PROMPT, this.validateLegalAgreement));
@@ -35,12 +36,19 @@ export class GreetingDialog extends ComponentDialog {
         });
     }
 
+    private routeToMenu = async (step: WaterfallStepContext) => {
+        if (VALIDATION_SUCCEEDED) {
+            return step.replaceDialog('mainMenuDialog');
+        } else {
+            return step.next();
+        }
+    }
+
     private validateLegalAgreement = async (validatorContext: PromptValidatorContext<FoundChoice>) => {
         const { value } = validatorContext.recognized.value;
         if (value !== 'Yes') {
             return VALIDATION_FAILED;
         } else {
-            //TODO: proceed to menu...
             return VALIDATION_SUCCEEDED;
         }
     }

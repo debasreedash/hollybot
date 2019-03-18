@@ -1,12 +1,19 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-import { WelcomeCard } from './dialogs/welcome/index';
-import { GreetingDialog } from './dialogs/greeting/index';
+import { WelcomeCard } from './dialogs/welcome';
+import { GreetingDialog } from './dialogs/greeting';
 import { ActivityTypes, CardFactory, ConversationState, StatePropertyAccessor, TurnContext} from 'botbuilder';
-import { DialogSet, DialogState } from 'botbuilder-dialogs';
+import { ChoicePrompt, DialogSet, DialogState } from 'botbuilder-dialogs';
+import { MainMenuDialog } from './dialogs/main-menu';
+import { HeadacheDialog } from './dialogs/headache';
+import { NauseaDialog } from './dialogs/nausea';
+import { QnAMaker, QnAMakerEndpoint, QnAMakerOptions } from 'botbuilder-ai';
 
 const GREETING_DIALOG = 'greetingDialog';
+const MAIN_MENU_DIALOG = 'mainMenuDialog';
+const HEADACHE_DIALOG = 'headacheDialog';
+const NAUSEA_DIALOG = 'nauseaDialog';
 const DIALOG_STATE_PROPERTY = 'dialogState';
 
 export class MyBot {
@@ -14,15 +21,23 @@ export class MyBot {
     private dialogState: StatePropertyAccessor<DialogState>;
     private conversationState: ConversationState;
     private dialogs: DialogSet;
+    private qnaMaker: QnAMaker;
 
-    constructor(conversationState: ConversationState) {
+    constructor(conversationState: ConversationState, qnaEndpoint: QnAMakerEndpoint, qnaOptions?: QnAMakerOptions) {
 
         if (!conversationState) { throw new Error('Missing parameter.  conversationState is required'); }
+
+        this.qnaMaker = new QnAMaker(qnaEndpoint, qnaOptions);
 
         this.dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
 
         this.dialogs = new DialogSet(this.dialogState);
         this.dialogs.add(new GreetingDialog(GREETING_DIALOG));
+        this.dialogs.add(new MainMenuDialog(MAIN_MENU_DIALOG));
+        this.dialogs.add(new HeadacheDialog(HEADACHE_DIALOG));
+        this.dialogs.add(new NauseaDialog(NAUSEA_DIALOG));
+
+        this.dialogs.add(new ChoicePrompt('choicePrompt'));
 
         this.conversationState = conversationState;
     }
@@ -32,11 +47,32 @@ export class MyBot {
      *
      * @param {TurnContext} context on turn context object.
      */
-    public onTurn = async (context: TurnContext) => {
+    public async onTurn(context: TurnContext) {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
         const dc = await this.dialogs.createContext(context);
         if (context.activity.type === ActivityTypes.Message) {
-            await dc.continueDialog();
+
+            const utterance = (context.activity.text || '').trim().toLowerCase();
+
+            if (utterance === 'cancel') {
+                if (dc.activeDialog) {
+                    await dc.cancelAllDialogs();
+                    await dc.context.sendActivity(`Okay bye!`);
+                }
+            }
+
+            const qnaOptions: QnAMakerOptions = {
+                scoreThreshold: 0.5
+            };
+
+            const qnaResults = []; // await this.qnaMaker.getAnswers(context, qnaOptions);
+            if (qnaResults.length > 0) {
+                console.log('qna result', qnaResults[0]);
+                await context.sendActivity(qnaResults[0].answer);
+                await dc.continueDialog();
+            } else {
+                await dc.continueDialog();
+            }
         } else {
             if (context.activity.membersAdded.length !== 0) {
                 // Iterate over all new members added to the conversation

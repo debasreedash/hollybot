@@ -8,6 +8,14 @@
             "appId": "",
             "appPassword": "",
             "id": "1"
+        },
+        {
+            "type": "qna",
+            "name": "qnamakerService",
+            "kbId": "f4532c2b-e14b-4c70-9931-ac1a68978413",
+            "endpointKey": "f3628b1d-07bb-4b6b-9d69-efca2537c3e3",
+            "hostname": "https://mollyheadache.azurewebsites.net/qnamaker",
+            "id": "163"
         }
     ],
     "padlock": "",
