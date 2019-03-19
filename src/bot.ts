@@ -9,11 +9,16 @@ import { MainMenuDialog } from './dialogs/main-menu';
 import { HeadacheDialog } from './dialogs/headache';
 import { NauseaDialog } from './dialogs/nausea';
 import { QnAMaker, QnAMakerEndpoint, QnAMakerOptions } from 'botbuilder-ai';
+import { QnaDialog } from './dialogs/shared/qnadialog';
+import { BotConfiguration } from 'botframework-config';
+import { HelpDialog } from './dialogs/shared/help';
 
 const GREETING_DIALOG = 'greetingDialog';
 const MAIN_MENU_DIALOG = 'mainMenuDialog';
 const HEADACHE_DIALOG = 'headacheDialog';
 const NAUSEA_DIALOG = 'nauseaDialog';
+const QNA_DIALOG = 'qnaDialog';
+const HELP_DIALOG = 'helpDialog';
 const DIALOG_STATE_PROPERTY = 'dialogState';
 
 export class MyBot {
@@ -23,11 +28,9 @@ export class MyBot {
     private dialogs: DialogSet;
     private qnaMaker: QnAMaker;
 
-    constructor(conversationState: ConversationState, qnaEndpoint: QnAMakerEndpoint, qnaOptions?: QnAMakerOptions) {
+    constructor(conversationState: ConversationState, botConfig: BotConfiguration) {
 
         if (!conversationState) { throw new Error('Missing parameter.  conversationState is required'); }
-
-        this.qnaMaker = new QnAMaker(qnaEndpoint, qnaOptions);
 
         this.dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
 
@@ -36,6 +39,8 @@ export class MyBot {
         this.dialogs.add(new MainMenuDialog(MAIN_MENU_DIALOG));
         this.dialogs.add(new HeadacheDialog(HEADACHE_DIALOG));
         this.dialogs.add(new NauseaDialog(NAUSEA_DIALOG));
+        this.dialogs.add(new QnaDialog(QNA_DIALOG, botConfig));
+        this.dialogs.add(new HelpDialog(HELP_DIALOG, conversationState));
 
         this.dialogs.add(new ChoicePrompt('choicePrompt'));
 
@@ -65,14 +70,14 @@ export class MyBot {
                 scoreThreshold: 0.5
             };
 
-            const qnaResults = []; // await this.qnaMaker.getAnswers(context, qnaOptions);
-            if (qnaResults.length > 0) {
-                console.log('qna result', qnaResults[0]);
-                await context.sendActivity(qnaResults[0].answer);
-                await dc.continueDialog();
-            } else {
-                await dc.continueDialog();
-            }
+            // const qnaResults = []; // await this.qnaMaker.getAnswers(context, qnaOptions);
+            // if (qnaResults.length > 0) {
+            //     console.log('qna result', qnaResults[0]);
+            //     await context.sendActivity(qnaResults[0].answer);
+            //     await dc.continueDialog();
+            // } else {
+            await dc.continueDialog();
+            // }
         } else {
             if (context.activity.membersAdded.length !== 0) {
                 // Iterate over all new members added to the conversation

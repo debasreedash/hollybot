@@ -82,7 +82,7 @@ const memoryStorage = new MemoryStorage();
 const conversationState = new ConversationState(memoryStorage);
 
 // Create the main dialog.
-const myBot = new MyBot(conversationState, qnaEndpointSettings, {});
+const myBot = new MyBot(conversationState, botConfig);
 
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {

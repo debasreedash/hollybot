@@ -1,15 +1,19 @@
 
 import {
-    ChoiceFactoryOptions, ChoicePrompt, Dialog, PromptOptions, WaterfallDialog,
+    ChoiceFactoryOptions, ChoicePrompt, Dialog, DialogState, PromptOptions, WaterfallDialog,
     WaterfallStepContext
 } from 'botbuilder-dialogs';
 import { sharedResponses } from './shared_responses';
+import { ConversationState } from 'botbuilder';
 
 export class HelpDialog extends WaterfallDialog {
 
-    constructor(dialogId: string) {
-        super(dialogId);
+    private conversationState: ConversationState;
 
+    constructor(dialogId: string, conversationState: ConversationState) {
+        super(dialogId);
+        if (!dialogId) { throw Error('Missing parameter.  dialogId is required'); }
+        this.conversationState = conversationState;
         this.addStep(this.promptForHelp.bind(this));
         this.addStep(this.handleHelp.bind(this));
     }
@@ -25,13 +29,20 @@ export class HelpDialog extends WaterfallDialog {
     private handleHelp = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
         switch (result) {
-            case 'yes':
-                step.context.sendActivity(sharedResponses.DID_NOT_HELP);
-                break;
             case 'no':
-                step.context.sendActivity(sharedResponses.SUGGESTION_HELPED);
+                console.log('conversation state', this.conversationState);
+                await step.context.sendActivity(sharedResponses.DID_NOT_HELP);
+                break;
+            case 'yes':
+                await step.context.sendActivity(sharedResponses.SUGGESTION_HELPED);
                 break;
         }
-        step.cancelAllDialogs();
+        return step.next();
+    }
+
+    private moreInformation(dialogId) {
+        switch (dialogId) {
+
+        }
     }
 }

@@ -28,7 +28,6 @@ export class HeadacheDialog extends WaterfallDialog {
             case 'low':
             case 'mild':
                 return step.next();
-                break;
             case 'severe':
                 await step.context.sendActivity(responses.SEVERE_PAIN);
                 const options = {
@@ -37,7 +36,7 @@ export class HeadacheDialog extends WaterfallDialog {
                 };
                 return await step.prompt('choicePrompt', options);
         }
-    };
+    }
 
     private headacheSymptomPrompt = async (step: WaterfallStepContext) => {
         const options: PromptOptions = {
@@ -45,7 +44,7 @@ export class HeadacheDialog extends WaterfallDialog {
             choices: ['Stress', 'Physical', 'Sinus', 'Not Sure']
         };
         return await step.prompt('choicePrompt', options);
-    };
+    }
 
     private handleHeadacheSymptom = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
@@ -60,7 +59,8 @@ export class HeadacheDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.SINUS_RESPONSE);
                 break;
             case 'not sure':
-                await step.context.sendActivity(responses.NOT_SURE_RESPONSE);
+                console.log('picked not sure');
+                await step.replaceDialog('qnaDialog');
                 break;
             case 'severe':
                 await step.context.sendActivity(responses.SEVERE_PAIN);
