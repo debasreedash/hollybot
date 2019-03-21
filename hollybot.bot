@@ -12,9 +12,9 @@
          {
              "type": "qna",
              "name": "qnamakerService",
-             "kbId": "f4532c2b-e14b-4c70-9931-ac1a68978413",
-             "endpointKey": "f3628b1d-07bb-4b6b-9d69-efca2537c3e3",
-             "hostname": "https://mollyheadache.azurewebsites.net/qnamaker",
+             "kbId": "8f054f81-7285-48f4-bf0f-4278795d3c8d",
+             "endpointKey": "04b0311e-3d83-46cc-83d4-e475459b53ee",
+             "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
              "id": "163"
          }
     ],

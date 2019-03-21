@@ -1,6 +1,7 @@
 
 import { Dialog, PromptOptions, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
 import { responses } from './responses';
+import { ActivityTypes } from 'botbuilder';
 
 export class HeadacheDialog extends WaterfallDialog {
 
@@ -12,6 +13,9 @@ export class HeadacheDialog extends WaterfallDialog {
         this.addStep(this.painCausePrompt.bind(this));
         this.addStep(this.headacheSymptomPrompt.bind(this));
         this.addStep(this.handleHeadacheSymptom.bind(this));
+        this.addStep(this.helpHandler.bind(this));
+        this.addStep(this.handleQna.bind(this));
+        this.addStep(this.endQna.bind(this));
     }
 
     private rankPainCard = async (step: WaterfallStepContext) => {
@@ -48,16 +52,17 @@ export class HeadacheDialog extends WaterfallDialog {
 
     private handleHeadacheSymptom = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
+        await step.context.sendActivity({type: ActivityTypes.Typing});
         switch (result) {
             case 'stress':
                 await step.context.sendActivity(responses.STRESS_RESPONSE);
-                break;
+                return await step.beginDialog('helpDialog');
             case 'physical':
                 await step.context.sendActivity(responses.PHYSICAL_RESPONSE);
-                break;
+                return await step.beginDialog('helpDialog');
             case 'sinus':
                 await step.context.sendActivity(responses.SINUS_RESPONSE);
-                break;
+                return await step.beginDialog('helpDialog');
             case 'not sure':
                 console.log('picked not sure');
                 await step.replaceDialog('qnaDialog');
@@ -67,6 +72,18 @@ export class HeadacheDialog extends WaterfallDialog {
                 break;
         }
         return step.next();
+    }
+
+    private helpHandler = async (step: WaterfallStepContext) => {
+        return await step.prompt('textPrompt', `Can you tell me in a few words what's going on?`);
+    }
+
+    private handleQna = async (step: WaterfallStepContext) => {
+        return await step.beginDialog('qnaDialog');
+    }
+
+    private endQna = async (step: WaterfallStepContext) => {
+        return await step.replaceDialog('helpDialog', { endConversation: true });
     }
 
 }

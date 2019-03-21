@@ -4,7 +4,7 @@
 import { WelcomeCard } from './dialogs/welcome';
 import { GreetingDialog } from './dialogs/greeting';
 import { ActivityTypes, CardFactory, ConversationState, StatePropertyAccessor, TurnContext} from 'botbuilder';
-import { ChoicePrompt, DialogSet, DialogState } from 'botbuilder-dialogs';
+import { ChoicePrompt, DialogSet, DialogState, TextPrompt } from 'botbuilder-dialogs';
 import { MainMenuDialog } from './dialogs/main-menu';
 import { HeadacheDialog } from './dialogs/headache';
 import { NauseaDialog } from './dialogs/nausea';
@@ -43,6 +43,7 @@ export class MyBot {
         this.dialogs.add(new HelpDialog(HELP_DIALOG, conversationState));
 
         this.dialogs.add(new ChoicePrompt('choicePrompt'));
+        this.dialogs.add(new TextPrompt('textPrompt'));
 
         this.conversationState = conversationState;
     }
@@ -59,7 +60,7 @@ export class MyBot {
 
             const utterance = (context.activity.text || '').trim().toLowerCase();
 
-            if (utterance === 'cancel') {
+            if (['cancel', 'bye', 'quit'].includes(utterance)) {
                 if (dc.activeDialog) {
                     await dc.cancelAllDialogs();
                     await dc.context.sendActivity(`Okay bye!`);
