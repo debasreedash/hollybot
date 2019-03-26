@@ -9,14 +9,22 @@
             "appPassword": "",
             "id": "1"
         },
-         {
+        {
              "type": "qna",
              "name": "qnamakerService",
              "kbId": "8f054f81-7285-48f4-bf0f-4278795d3c8d",
              "endpointKey": "04b0311e-3d83-46cc-83d4-e475459b53ee",
              "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
-             "id": "163"
-         }
+             "id": "2"
+        },
+        {
+            "type": "endpoint",
+            "appId": "71f0cd93-6351-4eba-a4e8-5aa625c56341",
+            "appPassword": "W^#0&%@j{_}(9.n%+;TrXX:s;bR+(_!])[G9F@);:@->Ip(}#?W|)#!-%;#L]",
+            "endpoint": "https://myhollybot.azurewebsites.net/api/messages",
+            "name": "production",
+            "id": "4"
+        }
     ],
     "padlock": "",
     "version": "2.0"
