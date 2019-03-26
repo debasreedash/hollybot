@@ -2,3 +2,5 @@ node_modules
 lib
 .env
 .idea
+*.iml
+.DS_Store

@@ -10,15 +10,21 @@ import { HeadacheDialog } from './dialogs/headache';
 import { NauseaDialog } from './dialogs/nausea';
 import { QnAMaker, QnAMakerEndpoint, QnAMakerOptions } from 'botbuilder-ai';
 import { QnaDialog } from './dialogs/shared/qnadialog';
-import { BotConfiguration } from 'botframework-config';
+import { BackPainDialog } from './back-pain/backPainDialog';
+import { FluDialog } from './dialogs/flu';
 import { HelpDialog } from './dialogs/shared/help';
+import { FeedbackDialog } from './dialogs/feedback';
+import { BotConfiguration } from 'botframework-config';
 
 const GREETING_DIALOG = 'greetingDialog';
 const MAIN_MENU_DIALOG = 'mainMenuDialog';
 const HEADACHE_DIALOG = 'headacheDialog';
 const NAUSEA_DIALOG = 'nauseaDialog';
-const QNA_DIALOG = 'qnaDialog';
+const BACK_PAIN_DIALOG = 'backPainDialog';
+const FLU_DIALOG = 'fluDialog';
 const HELP_DIALOG = 'helpDialog';
+const FEEDBACK_DIALOG = 'feedbackDialog';
+const QNA_DIALOG = 'qnaDialog';
 const DIALOG_STATE_PROPERTY = 'dialogState';
 
 export class MyBot {
@@ -39,8 +45,11 @@ export class MyBot {
         this.dialogs.add(new MainMenuDialog(MAIN_MENU_DIALOG));
         this.dialogs.add(new HeadacheDialog(HEADACHE_DIALOG));
         this.dialogs.add(new NauseaDialog(NAUSEA_DIALOG));
+        this.dialogs.add(new BackPainDialog(BACK_PAIN_DIALOG));
+        this.dialogs.add(new FluDialog(FLU_DIALOG));
+        this.dialogs.add(new HelpDialog(HELP_DIALOG));
         this.dialogs.add(new QnaDialog(QNA_DIALOG, botConfig));
-        this.dialogs.add(new HelpDialog(HELP_DIALOG, conversationState));
+        this.dialogs.add(new FeedbackDialog(FEEDBACK_DIALOG));
 
         this.dialogs.add(new ChoicePrompt('choicePrompt'));
         this.dialogs.add(new TextPrompt('textPrompt'));

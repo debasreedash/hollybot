@@ -28,6 +28,8 @@ export class NauseaDialog extends WaterfallDialog {
         const result = step.result.value.toLowerCase();
         switch (result) {
             case 'yes':
+                return step.context.sendActivity(`Have a glass of lemon infused water`);
+            case 'no':
                 await step.context.sendActivity(responses.PREGNANCY_RESPONSE);
                 return step.replaceDialog('helpDialog');
             default:
