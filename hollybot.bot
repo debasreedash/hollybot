@@ -1,31 +1,33 @@
 {
     "name": "hollybot",
+    "description": "",
     "services": [
         {
             "type": "endpoint",
             "name": "development",
-            "endpoint": "http://localhost:3978/api/messages",
             "appId": "",
             "appPassword": "",
-            "id": "1"
-        },
-        {
-             "type": "qna",
-             "name": "qnamakerService",
-             "kbId": "8f054f81-7285-48f4-bf0f-4278795d3c8d",
-             "endpointKey": "04b0311e-3d83-46cc-83d4-e475459b53ee",
-             "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
-             "id": "2"
+            "endpoint": "http://localhost:3978/api/messages",
+            "id": "185"
         },
         {
             "type": "endpoint",
-            "appId": "71f0cd93-6351-4eba-a4e8-5aa625c56341",
-            "appPassword": "W^#0&%@j{_}(9.n%+;TrXX:s;bR+(_!])[G9F@);:@->Ip(}#?W|)#!-%;#L]",
-            "endpoint": "https://myhollybot.azurewebsites.net/api/messages",
             "name": "production",
-            "id": "4"
+            "appId": "71f0cd93-6351-4eba-a4e8-5aa625c56341",
+            "appPassword": "L9gmqZdZJbkgUI71uyjxyg==!eYVrpi4tDRVY8BK2Hoi6uIjTmdi9jNbhYZxwOwbCa+w=",
+            "endpoint": "https://myhollybot.azurewebsites.net/api/messages",
+            "id": "8"
+        },
+        {
+            "type": "qna",
+            "name": "qnamakerService",
+            "kbId": "8f054f81-7285-48f4-bf0f-4278795d3c8d",
+            "subscriptionKey": "p/zkASHY/g2dRzse8eMtFw==!sHy21Pd4UGuDyWpwaUFQTZPS/YWvNzC/qyjKPtcqrYJh1WAbVJWnuzQMI8Vl0bnQ",
+            "endpointKey": "usxFxPEW9WCVu/E75lTzCA==!wlNpDPg0EKriQ3r9VJ+fiJqfbmMmw0yHyxeRGYEa47uOaek0EcHLvFEcQWmtG1eP",
+            "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
+            "id": "236"
         }
     ],
-    "padlock": "",
+    "padlock": "BzbmMnygh94MlDGYdgTW4Q==!sxeGoM0G5MH4aj2hzGZ4fjUzsuQ0xp3HavnAQHpNbpa3UZfwV+4XEfw0EWIYVMm7",
     "version": "2.0"
 }
