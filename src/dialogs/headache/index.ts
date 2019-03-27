@@ -34,11 +34,7 @@ export class HeadacheDialog extends WaterfallDialog {
                 return step.next();
             case 'severe':
                 await step.context.sendActivity(responses.SEVERE_PAIN);
-                const options = {
-                    prompt: responses.SEVERE_PAIN_FOLLOW,
-                    choices: ['Yes', 'No']
-                };
-                return await step.prompt('choicePrompt', options);
+                return await step.replaceDialog('helpDialog');
         }
     }
 
@@ -64,14 +60,12 @@ export class HeadacheDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.SINUS_RESPONSE);
                 return await step.beginDialog('helpDialog');
             case 'not sure':
-                console.log('picked not sure');
-                await step.replaceDialog('qnaDialog');
+                return await step.replaceDialog('qnaDialog', { kb: 'qnamakerService' });
                 break;
             case 'severe':
                 await step.context.sendActivity(responses.SEVERE_PAIN);
-                break;
+                return await step.next();
         }
-        return step.next();
     }
 
     private helpHandler = async (step: WaterfallStepContext) => {

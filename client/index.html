@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Holly</title>
-    <script type="text/javascript" src="https://cdn.botframework.com/botframework-webchat/preview/botchat.js"></script>
+    <script type="text/javascript" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
     <style>
         html, body { height: 100% }
         body { margin: 0 }
@@ -19,18 +19,36 @@
     <script>
         const styleOptions = {
             backgroundColor: 'White',
-            bubbleBackground: '#222',
-            bubbleBorder: 'solid 1px #444',
+            bubbleBackground: '#3e89d5',
+            bubbleBorder: 'solid 1px #3e89d5',
             bubbleBorderRadius: 20,
-            bubbleFromUserBackground: '#222',
-            bubbleFromUserBorder: 'solid 1px #444',
+            bubbleFromUserBackground: '#3e89d5',
+            bubbleFromUserBorder: 'solid 1px #3e89d5',
             bubbleFromUserBorderRadius: 20,
             bubbleFromUserTextColor: 'White',
             bubbleTextColor: 'White'
         };
+        const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+         switch (action.type) {
+             case 'DIRECT_LINE/CONNECT_FULFILLED':
+               dispatch({
+                 type: 'WEB_CHAT/SEND_EVENT',
+                 payload: {
+                   name: 'webchat/join',
+                   value: { language: window.navigator.language }
+                 }
+               });
+               break;
+             case 'DIRECT_LINE/POST_ACTIVITY_FULFILLED':
+                 document.querySelector('[role=listitem]:last-of-type').scrollIntoView();
+                 break;
+         }
+         return next(action);
+        });
         window.WebChat.renderWebChat({
             directLine: window.WebChat.createDirectLine({ secret: 'xitUCkMhvbM.Oly-z-SP-X3uSqFsI7kWX1qPAVqGnDq6ZTD7vCuMqc4' }),
-            styleOptions: styleOptions
+            styleOptions: styleOptions,
+            store: store
         }, document.getElementById('webchat'));
     </script>
 </body>

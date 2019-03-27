@@ -53,8 +53,6 @@ const BOT_FILE = path.resolve(process.env.botFilePath || '');
 // Read bot configuration from .bot file.
 let botConfig;
 try {
-    console.log('botFilePath', BOT_FILE);
-    console.log('botFileSecret', process.env.botFileSecret);
     botConfig = BotConfiguration.loadSync(BOT_FILE, process.env.botFileSecret);
 } catch (err) {
     console.error(`\nError reading bot file. Please ensure you have valid botFilePath and botFileSecret set for your environment.`);
@@ -94,7 +92,7 @@ const memoryStorage = new MemoryStorage();
 const conversationState = new ConversationState(memoryStorage);
 
 // Create the main dialog.
-const myBot = new MyBot(conversationState, botConfig);
+const myBot = new MyBot(conversationState, botConfig, BOT_CONFIGURATION);
 
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {

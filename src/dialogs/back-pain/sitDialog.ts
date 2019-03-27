@@ -11,7 +11,9 @@ export class SitDialog extends WaterfallDialog {
         }
 
         this.addStep(this.sitPrompt.bind(this));
+        this.addStep(this.handleSitPrompt.bind(this));
         this.addStep(this.sleepPrompt.bind(this));
+        this.addStep(this.handleSleepPrompt.bind(this));
     }
 
     private sitPrompt = async (step: WaterfallStepContext) => {
@@ -19,16 +21,17 @@ export class SitDialog extends WaterfallDialog {
             prompt: 'Does the pain improve while reclining?',
             choices: ['Yes', 'No']
         };
-        return step.prompt('choicePrompt', options);
+        return await step.prompt('choicePrompt', options);
     };
 
     private handleSitPrompt = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
         switch (result) {
             case 'yes':
-                return  step.context.sendActivity(responses.SIT_PROMPT_RESPONSE);
+                await step.context.sendActivity(responses.SIT_PROMPT_RESPONSE);
+                return await step.replaceDialog('helpDialog');
             case 'no':
-                return  step.next();
+                return await step.next();
         }
     };
 
@@ -44,12 +47,16 @@ export class SitDialog extends WaterfallDialog {
         const result = step.result.value.toLowerCase();
         switch (result) {
             case 'on my back':
-                return  step.context.sendActivity(responses.SIT_BACK_RESPONSE);
+                await step.context.sendActivity(responses.SIT_BACK_RESPONSE);
+                break;
             case 'on my side':
-                return  step.context.sendActivity(responses.SIT_SIDE_RESPONSE);
+                await step.context.sendActivity(responses.SIT_SIDE_RESPONSE);
+                break;
             case 'on my stomach':
-                return  step.context.sendActivity(responses.SIT_STOMACH_RESPONSE);
+                await step.context.sendActivity(responses.SIT_STOMACH_RESPONSE);
+                break;
         }
+        return await step.replaceDialog('helpDialog');
     }
 
 }

@@ -14,7 +14,7 @@
             "type": "endpoint",
             "name": "production",
             "appId": "71f0cd93-6351-4eba-a4e8-5aa625c56341",
-            "appPassword": "L9gmqZdZJbkgUI71uyjxyg==!eYVrpi4tDRVY8BK2Hoi6uIjTmdi9jNbhYZxwOwbCa+w=",
+            "appPassword": "ROhW2oJOpfHfJq65S7ppWA==!qDqH+BihRwjGZivVuFPff3bFhMtnYhbBQLAD+RW11M0=",
             "endpoint": "https://myhollybot.azurewebsites.net/api/messages",
             "id": "8"
         },
@@ -22,10 +22,19 @@
             "type": "qna",
             "name": "qnamakerService",
             "kbId": "8f054f81-7285-48f4-bf0f-4278795d3c8d",
-            "subscriptionKey": "p/zkASHY/g2dRzse8eMtFw==!sHy21Pd4UGuDyWpwaUFQTZPS/YWvNzC/qyjKPtcqrYJh1WAbVJWnuzQMI8Vl0bnQ",
-            "endpointKey": "usxFxPEW9WCVu/E75lTzCA==!wlNpDPg0EKriQ3r9VJ+fiJqfbmMmw0yHyxeRGYEa47uOaek0EcHLvFEcQWmtG1eP",
+            "subscriptionKey": "nsYHq69YItJg0yOCf4GMvw==!SwJ1TR7iiEed8dAyEpdGUI1bf2bWkqmsdeZihO3TsG7NiBksEPmGIpDDANktPhK2",
+            "endpointKey": "dgajg0OVFmtq2I768i/srQ==!YEWrTTlTkwJzTA0/4KF39f130uya5BxkeybnLV1MZ56CrhH2HRde7XuNjA3K7zJv",
             "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
             "id": "236"
+        },
+        {
+            "type": "qna",
+            "name": "backPainKB",
+            "kbId": "52fd65f4-12e9-4591-8ce7-5b671197e873",
+            "subscriptionKey": "zqj/AKaK7k3JpP3gYTm7Ow==!P27kZClTTnOykVokBxKdLP2G3XH+q7iDCmRnF9B4iWDMd8ffmF6j8a5n6D7cYyD9",
+            "endpointKey": "7k/KojRuxG4q+mGXgjDUEw==!uzSdlp9XdkPFjWIaoF5334jhsjX9Dk0rg/YDqGcIEwBpkXgMFpHmtmRQrht1Ol8B",
+            "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
+            "id": "120"
         }
     ],
     "padlock": "BzbmMnygh94MlDGYdgTW4Q==!sxeGoM0G5MH4aj2hzGZ4fjUzsuQ0xp3HavnAQHpNbpa3UZfwV+4XEfw0EWIYVMm7",

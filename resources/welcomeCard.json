@@ -16,6 +16,7 @@
       "type": "TextBlock",
       "size": "default",
       "isSubtle": "yes",
+      "color": "white",
       "text": "Just keep in mind that I am not here to replace your doctor, so if this is an emergency please call 911.",
       "wrap": true,
       "maxLines": 0

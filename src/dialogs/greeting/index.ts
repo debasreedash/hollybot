@@ -44,8 +44,8 @@ export class GreetingDialog extends ComponentDialog {
         }
     }
 
-    private validateLegalAgreement = async (validatorContext: PromptValidatorContext<FoundChoice>) => {
-        const { value } = validatorContext.recognized.value;
+    private validateLegalAgreement = async ({ recognized }: PromptValidatorContext<FoundChoice>) => {
+        const value = recognized.value ? recognized.value.value : '';
         if (value !== 'Yes') {
             return VALIDATION_FAILED;
         } else {

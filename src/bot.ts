@@ -3,14 +3,14 @@
 
 import { WelcomeCard } from './dialogs/welcome';
 import { GreetingDialog } from './dialogs/greeting';
-import { ActivityTypes, CardFactory, ConversationState, StatePropertyAccessor, TurnContext} from 'botbuilder';
+import { ActivityTypes, CardFactory, ConversationState, StatePropertyAccessor, TurnContext } from 'botbuilder';
 import { ChoicePrompt, DialogSet, DialogState, TextPrompt } from 'botbuilder-dialogs';
 import { MainMenuDialog } from './dialogs/main-menu';
 import { HeadacheDialog } from './dialogs/headache';
 import { NauseaDialog } from './dialogs/nausea';
-import { QnAMaker, QnAMakerEndpoint, QnAMakerOptions } from 'botbuilder-ai';
+import { QnAMaker, QnAMakerOptions } from 'botbuilder-ai';
 import { QnaDialog } from './dialogs/shared/qnadialog';
-import { BackPainDialog } from './back-pain/backPainDialog';
+import { BackPainDialog } from './dialogs/back-pain/backPainDialog';
 import { FluDialog } from './dialogs/flu';
 import { HelpDialog } from './dialogs/shared/help';
 import { FeedbackDialog } from './dialogs/feedback';
@@ -34,9 +34,11 @@ export class MyBot {
     private dialogs: DialogSet;
     private qnaMaker: QnAMaker;
 
-    constructor(conversationState: ConversationState, botConfig: BotConfiguration) {
+    constructor(conversationState: ConversationState, botConfig: BotConfiguration, private env: string) {
 
-        if (!conversationState) { throw new Error('Missing parameter.  conversationState is required'); }
+        if (!conversationState) {
+            throw new Error('Missing parameter.  conversationState is required');
+        }
 
         this.dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
 
@@ -48,7 +50,7 @@ export class MyBot {
         this.dialogs.add(new BackPainDialog(BACK_PAIN_DIALOG));
         this.dialogs.add(new FluDialog(FLU_DIALOG));
         this.dialogs.add(new HelpDialog(HELP_DIALOG));
-        this.dialogs.add(new QnaDialog(QNA_DIALOG, botConfig));
+        this.dialogs.add(new QnaDialog(QNA_DIALOG, botConfig, conversationState));
         this.dialogs.add(new FeedbackDialog(FEEDBACK_DIALOG));
 
         this.dialogs.add(new ChoicePrompt('choicePrompt'));
@@ -63,50 +65,52 @@ export class MyBot {
      * @param {TurnContext} context on turn context object.
      */
     public async onTurn(context: TurnContext) {
+        let activity = context.activity;
+        console.log('activity', activity);
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
         const dc = await this.dialogs.createContext(context);
-        if (context.activity.type === ActivityTypes.Message) {
-
-            const utterance = (context.activity.text || '').trim().toLowerCase();
-
-            if (['cancel', 'bye', 'quit'].includes(utterance)) {
-                if (dc.activeDialog) {
-                    await dc.cancelAllDialogs();
-                    await dc.context.sendActivity(`Okay bye!`);
-                }
-            }
-
-            const qnaOptions: QnAMakerOptions = {
-                scoreThreshold: 0.5
-            };
-
-            // const qnaResults = []; // await this.qnaMaker.getAnswers(context, qnaOptions);
-            // if (qnaResults.length > 0) {
-            //     console.log('qna result', qnaResults[0]);
-            //     await context.sendActivity(qnaResults[0].answer);
-            //     await dc.continueDialog();
-            // } else {
-            await dc.continueDialog();
-            // }
-        } else {
-            if (context.activity.membersAdded.length !== 0) {
-                // Iterate over all new members added to the conversation
-                for (const idx in context.activity.membersAdded) {
-                    // Greet anyone that was not the target (recipient) of this message
-                    // the 'bot' is the recipient for events from the channel,
-                    // context.activity.membersAdded == context.activity.recipient.Id indicates the
-                    // bot was added to the conversation.
-                    if (context.activity.membersAdded[idx].id !== context.activity.recipient.id) {
-                        // Welcome user.
-                        // When activity type is "conversationUpdate" and the member joining the conversation is the bot
-                        // we will send our Welcome Adaptive Card.  This will only be sent once, when the Bot joins conversation
-                        // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
-                        const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
-                        await context.sendActivity({ attachments: [welcomeCard] });
-                        await dc.beginDialog(GREETING_DIALOG);
+        switch (activity.type) {
+            case ActivityTypes.Message:
+                const utterance = (activity.text || '').trim().toLowerCase();
+                if (['cancel', 'bye', 'quit'].includes(utterance)) {
+                    if (dc.activeDialog) {
+                        await dc.cancelAllDialogs();
+                        await dc.context.sendActivity(`Okay bye!`);
                     }
                 }
-            }
+                await dc.continueDialog();
+                break;
+
+            case ActivityTypes.Event:
+                if (activity.name === 'webchat/join') {
+                    const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
+                    await context.sendActivity({ attachments: [welcomeCard] });
+                    await dc.beginDialog(GREETING_DIALOG);
+                }
+                break;
+
+            default:
+                if (this.env !== 'production') {
+                    if (context.activity.membersAdded.length !== 0) {
+                        // Iterate over all new members added to the conversation
+                        for (const idx in context.activity.membersAdded) {
+                            // Greet anyone that was not the target (recipient) of this message
+                            // the 'bot' is the recipient for events from the channel,
+                            // context.activity.membersAdded == context.activity.recipient.Id indicates the
+                            // bot was added to the conversation.
+                            if (context.activity.membersAdded[idx].id !== context.activity.recipient.id) {
+                                // Welcome user.
+                                // When activity type is "conversationUpdate" and the member joining the conversation is the bot
+                                // we will send our Welcome Adaptive Card.  This will only be sent once, when the Bot joins conversation
+                                // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
+                                const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
+                                await context.sendActivity({ attachments: [welcomeCard] });
+                                await dc.beginDialog(GREETING_DIALOG);
+                            }
+                        }
+                    }
+                }
+                break;
         }
         await this.conversationState.saveChanges(context, false);
     }

@@ -1,5 +1,5 @@
 import { ComponentDialog, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
-import { sharedResponses } from '../dialogs/shared/shared_responses';
+import { sharedResponses } from '../shared/shared_responses';
 import { responses } from './responses';
 import { SitDialog } from './sitDialog';
 import { StandDialog } from './standDialog';
@@ -42,7 +42,7 @@ export class BackPainDialog extends ComponentDialog {
             case 'both':
                 return step.beginDialog('sitStandDialog');
             default:
-                step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
+                await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
                 return step.context.sendActivity(responses.HELPFUL_LINKS);
         }
     }
