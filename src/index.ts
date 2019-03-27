@@ -7,7 +7,7 @@ import * as restify from 'restify';
 
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
-import { BotFrameworkAdapter, ConversationState, MemoryStorage } from 'botbuilder';
+import { BotFrameworkAdapter, ConversationState, MemoryStorage, TranscriptLoggerMiddleware } from 'botbuilder';
 
 // Import required bot configuration.
 import { BotConfiguration, IEndpointService, IQnAService } from 'botframework-config';
@@ -15,6 +15,7 @@ import { QnAMaker } from 'botbuilder-ai';
 
 // This bot's main dialog.
 import { MyBot } from './bot';
+import { ChatLogger } from './dialogs/shared/chatlogger';
 
 // bot endpoint name as defined in .bot file
 // See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.
@@ -80,6 +81,9 @@ const adapter = new BotFrameworkAdapter({
     appPassword: endpointConfig.appPassword || process.env.microsoftAppPassword,
 });
 
+const logger = new ChatLogger(botConfig);
+// adapter.use(new TranscriptLoggerMiddleware(logger));
+
 // Catch-all for errors.
 adapter.onTurnError = async (context, error) => {
     // This check writes out errors to console log .vs. app insights.
@@ -92,7 +96,9 @@ const memoryStorage = new MemoryStorage();
 const conversationState = new ConversationState(memoryStorage);
 
 // Create the main dialog.
+// const myBot = new MyBot(conversationState, logger, botConfig, BOT_CONFIGURATION);
 const myBot = new MyBot(conversationState, botConfig, BOT_CONFIGURATION);
+
 
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {

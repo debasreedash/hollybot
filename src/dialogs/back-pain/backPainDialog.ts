@@ -4,6 +4,7 @@ import { responses } from './responses';
 import { SitDialog } from './sitDialog';
 import { StandDialog } from './standDialog';
 import { SitStandDialog } from './sitStandDialog';
+import { BackPainHelpDialog } from './backPainHelpDialog';
 
 export class BackPainDialog extends ComponentDialog {
 
@@ -22,6 +23,7 @@ export class BackPainDialog extends ComponentDialog {
         this.addDialog(new SitDialog('sitDialog'));
         this.addDialog(new StandDialog('standDialog'));
         this.addDialog(new SitStandDialog('sitStandDialog'));
+        this.addDialog(new BackPainHelpDialog('backPainHelpDialog'));
     }
 
     private positionPrompt = async (step: WaterfallStepContext) => {

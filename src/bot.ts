@@ -15,6 +15,7 @@ import { FluDialog } from './dialogs/flu';
 import { HelpDialog } from './dialogs/shared/help';
 import { FeedbackDialog } from './dialogs/feedback';
 import { BotConfiguration } from 'botframework-config';
+import { ChatLogger } from './dialogs/shared/chatlogger';
 
 const GREETING_DIALOG = 'greetingDialog';
 const MAIN_MENU_DIALOG = 'mainMenuDialog';
@@ -51,7 +52,9 @@ export class MyBot {
         this.dialogs.add(new FluDialog(FLU_DIALOG));
         this.dialogs.add(new HelpDialog(HELP_DIALOG));
         this.dialogs.add(new QnaDialog(QNA_DIALOG, botConfig, conversationState));
+        // this.dialogs.add(new FeedbackDialog(FEEDBACK_DIALOG, logger));
         this.dialogs.add(new FeedbackDialog(FEEDBACK_DIALOG));
+
 
         this.dialogs.add(new ChoicePrompt('choicePrompt'));
         this.dialogs.add(new TextPrompt('textPrompt'));
@@ -66,7 +69,11 @@ export class MyBot {
      */
     public async onTurn(context: TurnContext) {
         let activity = context.activity;
+
+        //TODO: add logger here
         console.log('activity', activity);
+
+
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
         const dc = await this.dialogs.createContext(context);
         switch (activity.type) {
@@ -76,6 +83,12 @@ export class MyBot {
                     if (dc.activeDialog) {
                         await dc.cancelAllDialogs();
                         await dc.context.sendActivity(`Okay bye!`);
+                    }
+                }
+                if (['death', 'dead', 'dying', 'emergency'].includes(utterance)) {
+                    if (dc.activeDialog) {
+                        await dc.context.sendActivity(`Please call 911 immediately. Take care!`);
+                        await dc.cancelAllDialogs();
                     }
                 }
                 await dc.continueDialog();

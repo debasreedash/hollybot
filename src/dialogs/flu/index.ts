@@ -85,7 +85,7 @@ export class FluDialog extends ComponentDialog {
         switch (result) {
             case 'yes':
                 await step.context.sendActivity(responses.POTENTIAL_FLU);
-                return await step.replaceDialog('otherRemediesDialog');
+                return await step.replaceDialog('fluSymptomsDialog');
             case 'no':
                 await step.context.sendActivity(responses.POTENTIAL_COLD_VIRUS);
                 return step.replaceDialog('helpDialog');
@@ -106,11 +106,10 @@ export class FluDialog extends ComponentDialog {
             case 'yes':
                 await step.context.sendActivity(responses.FLU_REMEDY_OPTION_ONE);
                 await step.context.sendActivity(responses.FLU_REMEDY_OPTION_TWO);
-                break;
+                return await step.replaceDialog('helpDialog');
             case 'no':
                 await step.context.sendActivity(responses.PRESCRIPTION_MEDS);
-                await step.next();
-                break;
+                return await step.replaceDialog('otherRemediesDialog');
         }
     }
 

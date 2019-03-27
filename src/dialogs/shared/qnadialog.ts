@@ -1,5 +1,5 @@
-import { Dialog, DialogTurnResult, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
-import { QnAMaker, QnAMakerOptions } from 'botbuilder-ai';
+import { WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
+import { QnAMaker } from 'botbuilder-ai';
 import { BotConfiguration, IQnAService } from 'botframework-config';
 import { StatePropertyAccessor, ConversationState } from 'botbuilder';
 
@@ -56,7 +56,7 @@ export class QnaDialog extends WaterfallDialog {
         if (!qnaResult || qnaResult.length === 0 || !qnaResult[0].answer) {
             // No answer found.
             await step.context.sendActivity(`Sorry, I do not know how to help you with that. I'm still learning..Check back with me later`);
-            await step.context.sendActivity(`Follow [this link](https://www.bing.com/search?q=${ step.result }) to search the web!`);
+            await step.context.sendActivity(`Please contact your doctor for more advice.`);
             return await step.replaceDialog('mainMenuDialog');
         } else {
             // respond with qna result

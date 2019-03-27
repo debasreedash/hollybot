@@ -29,10 +29,10 @@ export class SitStandDialog extends WaterfallDialog {
         switch (result) {
             case 'constant':
                 await step.context.sendActivity(responses.CONSTANT_PAIN);
-                return await step.replaceDialog('helpDialog');
+                return await step.replaceDialog('backPainHelpDialog');
             case 'stabbing/shooting':
                 await step.context.sendActivity(responses.STABBING_SHOOTING_PAIN);
-                return await step.replaceDialog('helpDialog');
+                return await step.replaceDialog('backPainHelpDialog');
             case 'not sure':
                 return await step.replaceDialog('qnaDialog', {
                     kb: 'backPainKB', prompt: sharedResponses.DESCRIBE_SYMPTOM

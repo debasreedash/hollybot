@@ -20,9 +20,11 @@
     "dependencies": {
         "botbuilder": "^4.3.2",
         "botbuilder-ai": "^4.3.2",
+        "botbuilder-azure": "^4.3.4",
         "botbuilder-dialogs": "^4.3.2",
         "botframework-config": "^4.3.2",
         "dotenv": "^6.1.0",
+        "moment-timezone": "^0.5.23",
         "replace": "^1.0.0",
         "restify": "^7.2.3"
     },

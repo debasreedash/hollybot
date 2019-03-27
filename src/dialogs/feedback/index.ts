@@ -1,11 +1,15 @@
 
 import { WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
 import { responses } from './responses';
+import { ChatLogger } from '../shared/chatlogger';
 
 export class FeedbackDialog extends WaterfallDialog {
 
+    logger: ChatLogger;
+
     constructor(dialogId) {
         super(dialogId);
+        // this.logger = logger;
 
         this.addStep(this.askFeedbackPrompt.bind(this));
         this.addStep(this.handleAskFeedbackPrompt.bind(this));
@@ -50,6 +54,7 @@ export class FeedbackDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.WILL_DO_BETTER);
                 break;
         }
+        // this.logger.logUserFeedback(step.context, step.result.value);
         return await step.cancelAllDialogs();
     }
 }

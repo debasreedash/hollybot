@@ -28,10 +28,12 @@ export class StandDialog extends WaterfallDialog {
         switch (result) {
             case 'yes':
                 await step.context.sendActivity(responses.CONSTANT_PAIN);
-                return await step.replaceDialog('helpDialog');
+                break;
             case 'no':
-                return await step.next();
+                await step.context.sendActivity(responses.STAND_YOGA);
+                break;
         }
+        return await step.replaceDialog('backPainHelpDialog');
     };
 
 }

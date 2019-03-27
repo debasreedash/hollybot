@@ -29,7 +29,7 @@ export class SitDialog extends WaterfallDialog {
         switch (result) {
             case 'yes':
                 await step.context.sendActivity(responses.SIT_PROMPT_RESPONSE);
-                return await step.replaceDialog('helpDialog');
+                return await step.replaceDialog('backPainHelpDialog');
             case 'no':
                 return await step.next();
         }
@@ -56,7 +56,7 @@ export class SitDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.SIT_STOMACH_RESPONSE);
                 break;
         }
-        return await step.replaceDialog('helpDialog');
+        return await step.replaceDialog('backPainHelpDialog');
     }
 
 }
