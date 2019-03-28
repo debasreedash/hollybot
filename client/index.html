@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Holly</title>
     <script type="text/javascript" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <script type="text/javascript" src="/env.js"></script>
     <style>
         html, body { height: 100% }
         body { margin: 0 }
@@ -46,7 +47,7 @@
          return next(action);
         });
         window.WebChat.renderWebChat({
-            directLine: window.WebChat.createDirectLine({ secret: process.env.DIRECTLINE_SECRET }),
+            directLine: window.WebChat.createDirectLine({ secret: window.directline_secret }),
             styleOptions: styleOptions,
             store: store
         }, document.getElementById('webchat'));

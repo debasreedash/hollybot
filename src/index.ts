@@ -100,6 +100,11 @@ const conversationState = new ConversationState(memoryStorage);
 const myBot = new MyBot(conversationState, botConfig, BOT_CONFIGURATION);
 
 
+server.get('/env.js', (req, res) => {
+    res.setHeader('Content-Type','application/javascript');
+    res.end(`window.directline_secret = '${process.env.DIRECTLINE_SECRET}';`);
+});
+
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
