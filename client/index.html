@@ -46,7 +46,7 @@
          return next(action);
         });
         window.WebChat.renderWebChat({
-            directLine: window.WebChat.createDirectLine({ secret: 'xitUCkMhvbM.Oly-z-SP-X3uSqFsI7kWX1qPAVqGnDq6ZTD7vCuMqc4' }),
+            directLine: window.WebChat.createDirectLine({ secret: process.env.DIRECTLINE_SECRET }),
             styleOptions: styleOptions,
             store: store
         }, document.getElementById('webchat'));

@@ -34,6 +34,7 @@ export class MyBot {
     private conversationState: ConversationState;
     private dialogs: DialogSet;
     private qnaMaker: QnAMaker;
+    private logger: ChatLogger;
 
     constructor(conversationState: ConversationState, botConfig: BotConfiguration, private env: string) {
 
@@ -42,7 +43,7 @@ export class MyBot {
         }
 
         this.dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
-
+        this.logger = new ChatLogger(botConfig);
         this.dialogs = new DialogSet(this.dialogState);
         this.dialogs.add(new GreetingDialog(GREETING_DIALOG));
         this.dialogs.add(new MainMenuDialog(MAIN_MENU_DIALOG));
@@ -71,8 +72,7 @@ export class MyBot {
         let activity = context.activity;
 
         //TODO: add logger here
-        console.log('activity', activity);
-
+        this.logger.logActivity(activity);
 
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
         const dc = await this.dialogs.createContext(context);
@@ -118,6 +118,7 @@ export class MyBot {
                                 // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
                                 const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
                                 await context.sendActivity({ attachments: [welcomeCard] });
+                                this.logger.logActivity(activity);
                                 await dc.beginDialog(GREETING_DIALOG);
                             }
                         }

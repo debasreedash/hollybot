@@ -4,8 +4,10 @@
  */
 import { CosmosDbStorage } from 'botbuilder-azure';
 import { ChatLog } from './chatlog';
+import { Middleware, TurnContext } from 'botbuilder';
+
 const uuid = require('uuid/v4');
-import  * as moment from 'moment-timezone';
+const moment = require('moment-timezone');
 
 export class ChatLogger {
 
@@ -30,8 +32,10 @@ export class ChatLogger {
         }
     }
 
+
     private baseDocument(activity) {
         const ts = moment();
+        console.log('ts', ts.tz('America/Chicago').format('h:mm:ss a'));
         let data = {
             botId: this.botId,
             conversationId: this.getConversationId(activity),
@@ -77,6 +81,8 @@ export class ChatLogger {
                 // Remove excess spaces
                 message: message.text ? message.text.replace(/\s{2,}/, ' ') : message.text
             }, document);
+            console.log('activity', document);
+
             if (message.text) {
                 this.writeDocument(document);
             }

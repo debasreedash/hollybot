@@ -35,7 +35,7 @@ export class SitStandDialog extends WaterfallDialog {
                 return await step.replaceDialog('backPainHelpDialog');
             case 'not sure':
                 return await step.replaceDialog('qnaDialog', {
-                    kb: 'backPainKB', prompt: sharedResponses.DESCRIBE_SYMPTOM
+                    kb: 'backPainNewKB', prompt: sharedResponses.DESCRIBE_SYMPTOM
                 });
         }
     }

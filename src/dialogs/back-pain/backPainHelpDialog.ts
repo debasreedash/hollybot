@@ -31,7 +31,7 @@ export class BackPainHelpDialog extends WaterfallDialog {
                 return await step.next();
             case 'no':
                 let prompt = `I'm sorry let's try this again. Please describe your symptoms.`;
-                return await step.replaceDialog('qnaDialog', { kb: 'backPainKB' , prompt: prompt});
+                return await step.replaceDialog('qnaDialog', { kb: 'backPainNewKB' , prompt: prompt});
         }
     }
 
