@@ -3,7 +3,7 @@ import { QnAMaker } from 'botbuilder-ai';
 import { BotConfiguration, IQnAService } from 'botframework-config';
 import { StatePropertyAccessor, ConversationState } from 'botbuilder';
 
-const QNA_CONFIGURATION = 'qnamakerService';
+const QNA_CONFIGURATION = 'headacheKB';
 const QNA_CONFIDENCE_THRESHOLD = 0.5;
 
 interface QnADialogOptions {

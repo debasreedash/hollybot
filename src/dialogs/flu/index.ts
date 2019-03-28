@@ -13,12 +13,16 @@ export class FluDialog extends ComponentDialog {
 
         this.addDialog(new WaterfallDialog('allergiesDialog', [
             this.allergyPrompt.bind(this),
-            this.handleAllergyPrompt.bind(this)
+            this.handleAllergyPrompt.bind(this),
+            this.qnaPrompt.bind(this),
+            this.handleQnaPrompt.bind(this)
         ]));
 
         this.addDialog(new WaterfallDialog('potentialFluDialog', [
             this.painPrompt.bind(this),
             this.handlePainPrompt.bind(this),
+            this.qnaPrompt.bind(this),
+            this.handleQnaPrompt.bind(this)
         ]));
 
         this.addDialog(new WaterfallDialog('fluSymptomsDialog', [
@@ -69,7 +73,27 @@ export class FluDialog extends ComponentDialog {
                 await step.context.sendActivity(responses.POTENTIAL_COLD_VIRUS);
                 break;
         }
-        return await step.replaceDialog('helpDialog');
+        return await step.next();
+    }
+
+    private qnaPrompt = async (step: WaterfallStepContext) => {
+        const options: PromptOptions = {
+            prompt: `Did that help?`,
+            choices: ['Yes', 'No']
+        };
+        return await step.prompt('choicePrompt', options);
+    }
+
+    private handleQnaPrompt = async (step: WaterfallStepContext) => {
+        const result = step.result.value.toLowerCase();
+        switch (result) {
+            case 'yes':
+                return await step.replaceDialog('mainMenuDialog');
+            case 'no':
+                let prompt = `Can you describe what is bothering you?`;
+                return await step.replaceDialog('qnaDialog', {kb: 'fluKB', prompt: prompt});
+        }
+        return await step.next();
     }
 
     private painPrompt = async (step: WaterfallStepContext) => {
@@ -88,7 +112,7 @@ export class FluDialog extends ComponentDialog {
                 return await step.replaceDialog('fluSymptomsDialog');
             case 'no':
                 await step.context.sendActivity(responses.POTENTIAL_COLD_VIRUS);
-                return step.replaceDialog('helpDialog');
+                return await step.next();
         }
     }
 

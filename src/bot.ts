@@ -54,7 +54,7 @@ export class MyBot {
         this.dialogs.add(new HelpDialog(HELP_DIALOG));
         this.dialogs.add(new QnaDialog(QNA_DIALOG, botConfig, conversationState));
         // this.dialogs.add(new FeedbackDialog(FEEDBACK_DIALOG, logger));
-        this.dialogs.add(new FeedbackDialog(FEEDBACK_DIALOG));
+        this.dialogs.add(new FeedbackDialog(FEEDBACK_DIALOG, botConfig));
 
 
         this.dialogs.add(new ChoicePrompt('choicePrompt'));

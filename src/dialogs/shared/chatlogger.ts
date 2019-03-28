@@ -21,7 +21,18 @@ export class ChatLogger {
         if (env !== 'local') {
             const chatLogsEnv = (env !== 'prod') ? 'dev' : 'prod';
             // Connect to dev CosmosDb for environments except prod
-            const cosmosDbConfig = botConfig.findServiceByNameOrId(`hollycosmosdb`);
+            let cosmosDbConfig;
+            // console.log('chat logs env', chatLogsEnv);
+            if (chatLogsEnv === 'dev') {
+                cosmosDbConfig = botConfig.findServiceByNameOrId(`hollycosmosdb`);
+                // console.log('cosmos', cosmosDbConfig);
+            }
+            else if (chatLogsEnv === 'prod') {
+                cosmosDbConfig = botConfig.findServiceByNameOrId(`hollycosmosdbprod`);
+            } else {
+                cosmosDbConfig = botConfig.findServiceByNameOrId(`hollycosmosdb`);
+            }
+
             let options = {
                 serviceEndpoint: cosmosDbConfig.endpoint,
                 authKey: cosmosDbConfig.key,
@@ -35,7 +46,6 @@ export class ChatLogger {
 
     private baseDocument(activity) {
         const ts = moment();
-        console.log('ts', ts.tz('America/Chicago').format('h:mm:ss a'));
         let data = {
             botId: this.botId,
             conversationId: this.getConversationId(activity),
@@ -81,7 +91,7 @@ export class ChatLogger {
                 // Remove excess spaces
                 message: message.text ? message.text.replace(/\s{2,}/, ' ') : message.text
             }, document);
-            console.log('activity', document);
+            // console.log('activity', document);
 
             if (message.text) {
                 this.writeDocument(document);

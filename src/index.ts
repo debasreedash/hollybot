@@ -33,7 +33,7 @@ if (NODE_ENV !== 'production') {
 // bot name as defined in .bot file
 // See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.
 const BOT_CONFIGURATION = NODE_ENV;
-const QNA_CONFIGURATION = 'qnamakerService';
+const QNA_CONFIGURATION = 'headacheKB';
 
 // Create HTTP server.
 const server = restify.createServer();

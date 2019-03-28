@@ -11,32 +11,6 @@
             "id": "185"
         },
         {
-            "type": "endpoint",
-            "name": "production",
-            "appId": "71f0cd93-6351-4eba-a4e8-5aa625c56341",
-            "appPassword": "AuOwt//N+8yCTX9oNt/vRw==!Adar8IekB4e2ylkmbSkwTwn8ZbAkWbbpLFBZgq+XOGw=",
-            "endpoint": "https://myhollybot.azurewebsites.net/api/messages",
-            "id": "8"
-        },
-        {
-            "type": "qna",
-            "name": "qnamakerService",
-            "kbId": "8f054f81-7285-48f4-bf0f-4278795d3c8d",
-            "subscriptionKey": "rkOMggPyLxHIfExXfmVYqA==!FfhcYDXnIyboLNYC+FOB46nVUu8Alat4i9nPWHD5Z7K3A3ZR+hoMz/ET7JJcDvgV",
-            "endpointKey": "2Z+/H92VWEMWyL60PusgBQ==!5Jv25iPJSuzb8dYmt4bvscR5BE86exxljfy+hNNnnB6+RlCKyNnJPsuqvSY6skct",
-            "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
-            "id": "236"
-        },
-        {
-            "type": "qna",
-            "name": "backPainKB",
-            "kbId": "52fd65f4-12e9-4591-8ce7-5b671197e873",
-            "subscriptionKey": "NknFHFuah7ah8FxVw4QrCg==!k5CYwq/0UPEGsR3ahmgstpLLHbKF5zZYVdMbXqI1/E1QXzaWrQxLbxWr5MAunnaJ",
-            "endpointKey": "MqjNzNQJIFfO/2qdqY9JZg==!ZlOP9ASGc53cHBU8C4KGlqOFeENQtT5bwsxAHA9uezcTeQCA8F4ja6HHtHuZ3Bra",
-            "hostname": "https://mollybetakb.azurewebsites.net/qnamaker",
-            "id": "120"
-        },
-        {
             "type": "cosmosdb",
             "name": "hollycosmosdb",
             "serviceName": "hollycosmosdb",
@@ -44,7 +18,7 @@
             "subscriptionId": "1148612e-02d4-4a1e-8892-3c8bd2a34c38",
             "resourceGroup": "myResourceGroup",
             "endpoint": "https://hollycosmosdb.documents.azure.com:443/",
-            "key": "4xrMMmue7s85zFR83Oy24g==!uqBRGriUxaVJ/1k2eyn/yOrvmqt2UA5kdKAOm1StNN1q1maPpuxTlMvKiN/FL69KMz0mH0SRYAO7/kaBa3av2sl3v+qV1JaWCzHgCbnQecRL1ojEiUK3rE3FIiOf+DI6",
+            "key": "MBXZjUKhQYSEhrhs3QGUFA==!Z231LvhamqgNLR2OOg9Yzfj7ZjEfhIZqJgIv/FuIJhpbCC6zo2K1oYo3qVkOOso0w1T+jtHLyVWA5x+bqfhKQH7lb9RH0Z+S3rktGyRioiwTD0O0P1F09J5VSRKoGulJ",
             "database": "hollybot-chatlogs",
             "collection": "hollybot-dev-chatlogs",
             "id": "215"
@@ -53,10 +27,165 @@
             "type": "qna",
             "name": "backPainNewKB",
             "kbId": "0b8fdeb0-f12e-4a0a-927a-2de26aee751d",
-            "subscriptionKey": "nouHO2tYDWFj8UQFHrde9w==!ua7uwKH2PKiN87iqKEVuPVppx7wVflStbtdTr2aj4p3eaNE8L9Koa9ZwQIC0+py6",
-            "endpointKey": "b2J13IwPhjdvQnMQ52Bwsg==!bVmvEO6f9TOVpOrGvwEfz65JiehTa/sdtEIuLivezMzQX/WrQ5k6lKiKPP/A05+C",
+            "subscriptionKey": "jW2L378ThbF25kjTET3bDg==!15cRtb/N1weF0cd8NI+ndlKIHjCvBLkvU8HsS+/wck7wf7yQtIzzyPnLtvXu4pVV",
+            "endpointKey": "7KdCjRBxHj6FdYlA+eFZng==!7cZ8DzWa57O3vjwxHa8ehREOHU02rQCMbfkU5bLEYctqiZDnKmBV4FFEygjn1Ge/",
             "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
             "id": "253"
+        },
+        {
+            "type": "endpoint",
+            "name": "production",
+            "appId": "dae89472-eadb-4fb5-9a70-2dcd536645e0",
+            "appPassword": "BFGOTOqZ8PbZU4qZkCW6DQ==!PdgqkHGb4/7ExLIJWOnuYyFoo9wpizQLd5Cu+cMetlA=",
+            "endpoint": "https://myhollybot.azurewebsites.net/api/messages",
+            "id": "228",
+            "commands": [],
+            "options": [
+                {
+                    "flags": "--id <id>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "long": "--id",
+                    "description": "service id"
+                },
+                {
+                    "flags": "-n, --name <name>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "short": "-n",
+                    "long": "--name",
+                    "description": "name of the endpoint"
+                },
+                {
+                    "flags": "-e, --endpoint <endpoint>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "short": "-e",
+                    "long": "--endpoint",
+                    "description": "url for the endpoint\n"
+                },
+                {
+                    "flags": "-a, --appId  <appid>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "short": "-a",
+                    "long": "--appId",
+                    "description": "(OPTIONAL) Microsoft AppId used for auth with the endpoint"
+                },
+                {
+                    "flags": "-p, --appPassword <password>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "short": "-p",
+                    "long": "--appPassword",
+                    "description": "(OPTIONAL) Microsoft app password used for auth with the endpoint"
+                },
+                {
+                    "flags": "-b, --bot <path>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "short": "-b",
+                    "long": "--bot",
+                    "description": "path to bot file.  If omitted, local folder will look for a .bot file"
+                },
+                {
+                    "flags": "--input <jsonfile>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "long": "--input",
+                    "description": "path to arguments in JSON format { id:'',name:'', ... }"
+                },
+                {
+                    "flags": "--secret <secret>",
+                    "required": true,
+                    "optional": false,
+                    "bool": true,
+                    "long": "--secret",
+                    "description": "bot file secret password for encrypting service secrets"
+                },
+                {
+                    "flags": "--stdin",
+                    "required": false,
+                    "optional": false,
+                    "bool": true,
+                    "long": "--stdin",
+                    "description": "arguments are passed in as JSON object via stdin"
+                },
+                {
+                    "flags": "--prefix",
+                    "required": false,
+                    "optional": false,
+                    "bool": true,
+                    "long": "--prefix",
+                    "description": "Append [msbot] prefix to all messages"
+                }
+            ],
+            "_execs": {},
+            "_allowUnknownOption": false,
+            "_args": [],
+            "_name": "msbot update endpoint",
+            "_description": "update the bot to an endpoint (--id or --endpoint is required)",
+            "_events": {},
+            "_eventsCount": 11,
+            "rawArgs": [
+                "/usr/local/bin/node",
+                "/usr/local/lib/node_modules/msbot/bin/msbot-update-endpoint.js",
+                "--id",
+                "228",
+                "--appPassword",
+                "hzxjCLUXM211)]+olfYZ78-",
+                "--secret",
+                "cM/ZssR88TBWXxke0/Ep4kWwUNyg1gt0jUf9dPW8Z6c="
+            ],
+            "secret": "cM/ZssR88TBWXxke0/Ep4kWwUNyg1gt0jUf9dPW8Z6c=",
+            "args": []
+        },
+        {
+            "type": "cosmosdb",
+            "name": "hollycosmosdbprod",
+            "serviceName": "hollycosmosdb",
+            "tenantId": "dfc8881e-9d08-4ad7-a6c0-43f9cf36614b",
+            "subscriptionId": "1148612e-02d4-4a1e-8892-3c8bd2a34c38",
+            "resourceGroup": "myResourceGroup",
+            "endpoint": "https://hollycosmosdb.documents.azure.com:443/",
+            "key": "4CvqJbFxylhgCjP7WhhNzg==!5E7Qghh+8PmTjHu2rcGRRFfvsPy7zeljok/pM/hThBFgyGV0T02aalhUfePtR7YmVCxr3nCPJpiH/fUdqo57g0g/+1Wz85US7AQDRL87LGYo+Jxgw2Vbug/JNSzWB74v",
+            "database": "hollybot-chatlogs",
+            "collection": "hollybot-prod-chatlogs",
+            "id": "111"
+        },
+        {
+            "type": "qna",
+            "name": "nauseaKB",
+            "kbId": "17a1b2d6-a4b3-4e37-b7bc-526fde5e2795",
+            "subscriptionKey": "EK+Kf5pep4WrCrXIT00CQA==!sg0h5vv5s52r8HZsZEi04TbaBYEnuI7pmNQn4yNmlIo6uroRXc3NBNDBfnpeCYgz",
+            "endpointKey": "7Wn/CS9owu7rVGgHktsLkg==!QKg9euOpSd5oUt1q0pgABEvmA9fwq6S5M2bGDRZbv++UiacXgui+tPdniy96Q0+M",
+            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
+            "id": "42"
+        },
+        {
+            "type": "qna",
+            "name": "fluKB",
+            "kbId": "61e0387a-7f24-4de5-b122-516fae444f40",
+            "subscriptionKey": "e8UCKXttKkRfVynaEegEGw==!Dn9CSLZ3nGclY0FM/PO2M1zthbNWyI0E0mU7y1F1BX1yEH7+mFslIC/snYkLUeyB",
+            "endpointKey": "VgcUpoefuR5e2+3ocyaT2Q==!W5zNIAoj3yd0m0Rf/mQYgMgtf9tYvQSW2hyQMIlFTYknWULYW3HckL7yjJqXfM1X",
+            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
+            "id": "110"
+        },
+        {
+            "type": "qna",
+            "name": "headacheKB",
+            "kbId": "dba86f63-facc-4387-919c-76dcb584873c",
+            "subscriptionKey": "B539tlbrHXLcoF+yh2VOlw==!qbcBj3BQ3CIPGDfVPCzUwwsspJlY5Bd+bH+oDPsqqhY/VJjguc/rAqtmrFFNb6Iu",
+            "endpointKey": "ValMd3p+aIW4AiSC3wigCQ==!BRf+oh19WP6sPOE23ZDnffWVQ2d2Lr7jG0BgOKde8jzImUmRxHzJF9LthTTeszLS",
+            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
+            "id": "4"
         }
     ],
     "padlock": "BzbmMnygh94MlDGYdgTW4Q==!sxeGoM0G5MH4aj2hzGZ4fjUzsuQ0xp3HavnAQHpNbpa3UZfwV+4XEfw0EWIYVMm7",

@@ -60,7 +60,7 @@ export class HeadacheDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.SINUS_RESPONSE);
                 return await step.beginDialog('helpDialog');
             case 'not sure':
-                return await step.replaceDialog('qnaDialog', { kb: 'qnamakerService' });
+                return await step.replaceDialog('qnaDialog', { kb: 'headacheKB' });
                 break;
             case 'severe':
                 await step.context.sendActivity(responses.SEVERE_PAIN);

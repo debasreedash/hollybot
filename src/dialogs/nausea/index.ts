@@ -30,10 +30,9 @@ export class NauseaDialog extends WaterfallDialog {
             case 'yes':
                 return step.context.sendActivity(`Have a glass of lemon infused water`);
             case 'no':
-                await step.context.sendActivity(responses.PREGNANCY_RESPONSE);
-                return step.replaceDialog('helpDialog');
+                return await step.next();
             default:
-                return step.next();
+                return await step.next();
         }
     }
 
@@ -69,12 +68,14 @@ export class NauseaDialog extends WaterfallDialog {
         switch (result) {
             case 'yes':
                 await step.context.sendActivity(responses.LARGE_MEAL_RESPONSE);
-                return step.replaceDialog('helpDialog');
+                return await step.replaceDialog('helpDialog');
             case 'no':
-                await step.context.sendActivity(sharedResponses.DESCRIBE_SYMPTOM);
-                return step.replaceDialog('qnaDialog');
+                return await step.replaceDialog('qnaDialog', {
+                    kb: 'nauseaKB' ,
+                    prompt: sharedResponses.DESCRIBE_SYMPTOM
+                });
             default:
-                return step.next();
+                return await step.next();
         }
     }
 }

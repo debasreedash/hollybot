@@ -7,9 +7,9 @@ export class FeedbackDialog extends WaterfallDialog {
 
     logger: ChatLogger;
 
-    constructor(dialogId) {
+    constructor(dialogId, botConfig) {
         super(dialogId);
-        // this.logger = logger;
+        this.logger = new ChatLogger(botConfig);
 
         this.addStep(this.askFeedbackPrompt.bind(this));
         this.addStep(this.handleAskFeedbackPrompt.bind(this));
@@ -54,7 +54,7 @@ export class FeedbackDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.WILL_DO_BETTER);
                 break;
         }
-        // this.logger.logUserFeedback(step.context, step.result.value);
+        this.logger.logUserFeedback(step.context, step.result.value);
         return await step.cancelAllDialogs();
     }
 }
