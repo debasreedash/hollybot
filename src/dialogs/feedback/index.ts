@@ -31,7 +31,7 @@ export class FeedbackDialog extends WaterfallDialog {
             case 'yes':
                 return await step.next();
             case 'no':
-                return await step.context.sendActivity(`Okay, have an awesome day!!`);
+                return await step.context.sendActivity(responses.NO_FEEDBACK);
         }
     }
 

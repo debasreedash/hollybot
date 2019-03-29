@@ -72,14 +72,14 @@ export class MyBot {
         let activity = context.activity;
 
         //TODO: add logger here
-        this.logger.logActivity(activity);
+        // this.logger.logActivity(activity);
 
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
         const dc = await this.dialogs.createContext(context);
         switch (activity.type) {
             case ActivityTypes.Message:
                 const utterance = (activity.text || '').trim().toLowerCase();
-                if (['cancel', 'bye', 'quit'].includes(utterance)) {
+                if (['cancel', 'bye', 'quit', 'end chat'].includes(utterance)) {
                     if (dc.activeDialog) {
                         await dc.cancelAllDialogs();
                         await dc.context.sendActivity(`Okay bye!`);
@@ -96,8 +96,10 @@ export class MyBot {
 
             case ActivityTypes.Event:
                 if (activity.name === 'webchat/join') {
-                    const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
-                    await context.sendActivity({ attachments: [welcomeCard] });
+                    await dc.context.sendActivity(`Hi there, I'm Holly! I'm here to 
+                        help you with your health and wellness concerns.`);
+                    await dc.context.sendActivity(`Keep in mind, I'm not here to 
+                        replace your doctor, so if this is an emergency please call 911.`);
                     await dc.beginDialog(GREETING_DIALOG);
                 }
                 break;

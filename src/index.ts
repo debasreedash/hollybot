@@ -82,7 +82,7 @@ const adapter = new BotFrameworkAdapter({
 });
 
 const logger = new ChatLogger(botConfig);
-// adapter.use(new TranscriptLoggerMiddleware(logger));
+adapter.use(new TranscriptLoggerMiddleware(logger));
 
 // Catch-all for errors.
 adapter.onTurnError = async (context, error) => {
