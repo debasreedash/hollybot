@@ -8,13 +8,15 @@ const QNA_CONFIDENCE_THRESHOLD = 0.5;
 
 interface QnADialogOptions {
     kb: string,
-    prompt: string
+    prompt: string,
+    helpLink: string
 }
 
 export class QnaDialog extends WaterfallDialog {
 
     private botConfig: BotConfiguration;
     private kb: StatePropertyAccessor<string>;
+    private helpLink: StatePropertyAccessor<string>;
     private qnaServices: Map<string, QnAMaker>;
 
     constructor(dialogId, botConfig, conversationState: ConversationState) {
@@ -22,6 +24,7 @@ export class QnaDialog extends WaterfallDialog {
         if (!dialogId) { throw Error('Missing parameter.  dialogId is required'); }
 
         this.kb = conversationState.createProperty('kb');
+        this.helpLink = conversationState.createProperty('helpLink');
 
         this.botConfig = botConfig;
         this.qnaServices = new Map<string, QnAMaker>();
@@ -42,8 +45,8 @@ export class QnaDialog extends WaterfallDialog {
     }
 
     private promptQnA = async (step: WaterfallStepContext<QnADialogOptions>) => {
-        console.log ('kb', step.options.kb);
         await this.kb.set(step.context, step.options.kb);
+        await this.helpLink.set(step.context, step.options.helpLink);
         let prompt = step.options.prompt || `Can you tell me in a few words what's going on?`;
         return await step.prompt('textPrompt', prompt);
     }
@@ -52,6 +55,7 @@ export class QnaDialog extends WaterfallDialog {
         // Call QnA Maker and get results.
         console.log('result', step.result);
         const kb = await this.kb.get(step.context) || QNA_CONFIGURATION;
+        const link = await this.helpLink.get(step.context);
 
         let qnaResult: QnAMakerResult[] = [];
         const qnaOptions = {
@@ -72,13 +76,16 @@ export class QnaDialog extends WaterfallDialog {
         console.log('qna result', qnaResult);
         if (!qnaResult || qnaResult.length === 0 || !qnaResult[0].answer) {
             // No answer found.
-            await step.context.sendActivity(`Sorry, I do not know how to help you with that. I'm still learning..Check back with me later`);
-            await step.context.sendActivity(`Please contact your doctor for more advice.`);
-            return await step.replaceDialog('mainMenuDialog');
+            await step.context.sendActivity(`Sorry, I do not know how to help you with that. I'm still learning..Check back with me later or contact your physician`);
+            await step.context.sendActivity(link);
+            return await step.replaceDialog('mainMenuDialog', {
+                prompt: `Need help with anything else? You can end the chat by typing 'end chat'`
+            });
         } else {
             // respond with qna result
             await step.context.sendActivity(await qnaResult[0].answer);
-            return await step.replaceDialog('helpDialog', { endConversation: true });
+            await step.context.sendActivity(link);
+            return await step.replaceDialog('helpDialog', { endConversation: true, message: link});
         }
     };
 
@@ -88,8 +95,7 @@ export class QnaDialog extends WaterfallDialog {
             promises.push(s.getAnswers(context, options));
 
         return Promise.all(promises).then(results => {
-            return results.filter(r => r.length > 0)
-                .map(r => r[0]).sort((a, b) => a.score - b.score)
-        })
+            return [].concat.apply([], results).sort((a, b) => b.score - a.score);
+        });
     }
 }

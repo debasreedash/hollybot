@@ -2,6 +2,7 @@
 import { Dialog, PromptOptions, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
 import { responses } from './responses';
 import { ActivityTypes } from 'botbuilder';
+import { sharedResponses } from '../shared/shared_responses';
 
 export class HeadacheDialog extends WaterfallDialog {
 
@@ -13,9 +14,9 @@ export class HeadacheDialog extends WaterfallDialog {
         this.addStep(this.painCausePrompt.bind(this));
         this.addStep(this.headacheSymptomPrompt.bind(this));
         this.addStep(this.handleHeadacheSymptom.bind(this));
+        this.addStep(this.didThatHelpPrompt.bind(this));
         this.addStep(this.helpHandler.bind(this));
         this.addStep(this.handleQna.bind(this));
-        this.addStep(this.endQna.bind(this));
     }
 
     private rankPainCard = async (step: WaterfallStepContext) => {
@@ -41,7 +42,7 @@ export class HeadacheDialog extends WaterfallDialog {
     private headacheSymptomPrompt = async (step: WaterfallStepContext) => {
         const options: PromptOptions = {
             prompt: 'Do you know what may be causing your headache?',
-            choices: ['Stress', 'Physical', 'Sinus', 'Not Sure']
+            choices: ['Stress', 'Pressure', 'Sinus', 'Not Sure']
         };
         return await step.prompt('choicePrompt', options);
     }
@@ -52,32 +53,45 @@ export class HeadacheDialog extends WaterfallDialog {
         switch (result) {
             case 'stress':
                 await step.context.sendActivity(responses.STRESS_RESPONSE);
-                return await step.beginDialog('helpDialog');
-            case 'physical':
-                await step.context.sendActivity(responses.PHYSICAL_RESPONSE);
-                return await step.beginDialog('helpDialog');
+                break;
+            case 'pressure':
+                await step.context.sendActivity(responses.PRESSURE_RESPONSE);
+                break;
             case 'sinus':
                 await step.context.sendActivity(responses.SINUS_RESPONSE);
-                return await step.beginDialog('helpDialog');
+                break;
             case 'not sure':
                 return await step.replaceDialog('qnaDialog', { kb: 'headacheKB' });
-                break;
-            case 'severe':
-                await step.context.sendActivity(responses.SEVERE_PAIN);
-                return await step.next();
         }
+        return await step.next();
+    }
+
+    private didThatHelpPrompt = async (step: WaterfallStepContext) => {
+        let prompt = 'Did that work?';
+        const options: PromptOptions = {
+            prompt: prompt,
+            choices: ['Yes', 'No']
+        };
+        return await step.prompt('choicePrompt', options);
     }
 
     private helpHandler = async (step: WaterfallStepContext) => {
-        return await step.prompt('textPrompt', `Can you tell me in a few words what's going on?`);
+        const result = step.result.value.toLowerCase();
+        switch (result) {
+            case 'yes':
+                return await step.replaceDialog('mainMenuDialog');
+            case 'no':
+                return await step.next();
+            default:
+                await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
+                return await step.replaceDialog('mainMenuDialog');
+        }
     }
 
     private handleQna = async (step: WaterfallStepContext) => {
-        return await step.beginDialog('qnaDialog');
-    }
-
-    private endQna = async (step: WaterfallStepContext) => {
-        return await step.replaceDialog('helpDialog', { endConversation: true });
+        return await step.replaceDialog('qnaDialog', {
+            helpLink: `You can also find more information on [Everyday Health](https://www.everydayhealth.com/headache-migraine/fast-headache-relief.aspx)`
+        });
     }
 
 }

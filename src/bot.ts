@@ -81,14 +81,20 @@ export class MyBot {
                 const utterance = (activity.text || '').trim().toLowerCase();
                 if (['cancel', 'bye', 'quit', 'end chat'].includes(utterance)) {
                     if (dc.activeDialog) {
-                        await dc.cancelAllDialogs();
-                        await dc.context.sendActivity(`Okay bye!`);
+                        await dc.replaceDialog('feedbackDialog');
+                        // await dc.context.sendActivity(`Okay thanks for chatting with me!
+                        //  You can close this window to end the chat.`);
                     }
                 }
                 if (['death', 'dead', 'dying', 'emergency'].includes(utterance)) {
                     if (dc.activeDialog) {
                         await dc.context.sendActivity(`Please call 911 immediately. Take care!`);
                         await dc.cancelAllDialogs();
+                    }
+                }
+                if (['hi', 'hello', `what's up`, 'howdy'].includes(utterance)) {
+                    if (dc.activeDialog) {
+                        await dc.context.sendActivity(`Hey there, nice to meet you!`);
                     }
                 }
                 await dc.continueDialog();

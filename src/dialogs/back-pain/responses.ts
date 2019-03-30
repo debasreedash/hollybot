@@ -8,5 +8,5 @@ export const responses = {
     CONSTANT_PAIN: `Try applying an ice pack to the area it hurts. Consider taking one of these over 
         the counter medications: Ibuprofen, Advil, Motrin IB, Aleve`,
     STABBING_SHOOTING_PAIN: `Talk to your doctor about prescription muscle relaxers or relaxants`,
-    STAND_YOGA: `Try yoga or the following 15 min back exercises. Insert link:`
+    STAND_YOGA: `Try yoga or the following 15 min back exercises. [Click for more information](https://www.mayoclinic.org/diseases-conditions/back-pain/diagnosis-treatment/drc-20369911)`
 };
