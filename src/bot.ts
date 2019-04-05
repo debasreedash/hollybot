@@ -14,7 +14,7 @@ import { BackPainDialog } from './dialogs/back-pain/backPainDialog';
 import { FluDialog } from './dialogs/flu';
 import { HelpDialog } from './dialogs/shared/help';
 import { FeedbackDialog } from './dialogs/feedback';
-import { BotConfiguration } from 'botframework-config';
+import { BotConfiguration, IQnAService } from 'botframework-config';
 import { ChatLogger } from './dialogs/shared/chatlogger';
 
 const GREETING_DIALOG = 'greetingDialog';
@@ -35,12 +35,14 @@ export class MyBot {
     private dialogs: DialogSet;
     private qnaMaker: QnAMaker;
     private logger: ChatLogger;
+    private botConfig: BotConfiguration;
 
     constructor(conversationState: ConversationState, botConfig: BotConfiguration, private env: string) {
 
         if (!conversationState) {
             throw new Error('Missing parameter.  conversationState is required');
         }
+        this.botConfig = botConfig;
 
         this.dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
         this.logger = new ChatLogger(botConfig);
@@ -71,14 +73,16 @@ export class MyBot {
     public async onTurn(context: TurnContext) {
         let activity = context.activity;
 
-        //TODO: add logger here
-        // this.logger.logActivity(activity);
+        const timeout = ms => new Promise(res => setTimeout(res, ms))
 
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
         const dc = await this.dialogs.createContext(context);
         switch (activity.type) {
             case ActivityTypes.Message:
+                await context.sendActivity({type: ActivityTypes.Typing});
+                await timeout(1000);
                 const utterance = (activity.text || '').trim().toLowerCase();
+
                 if (['cancel', 'bye', 'quit', 'end chat'].includes(utterance)) {
                     if (dc.activeDialog) {
                         await dc.replaceDialog('feedbackDialog');
@@ -92,11 +96,7 @@ export class MyBot {
                         await dc.cancelAllDialogs();
                     }
                 }
-                if (['hi', 'hello', `what's up`, 'howdy'].includes(utterance)) {
-                    if (dc.activeDialog) {
-                        await dc.context.sendActivity(`Hey there, nice to meet you!`);
-                    }
-                }
+
                 await dc.continueDialog();
                 break;
 
@@ -104,8 +104,12 @@ export class MyBot {
                 if (activity.name === 'webchat/join') {
                     await dc.context.sendActivity(`Hi there, I'm Holly! I'm here to 
                         help you with your health and wellness concerns.`);
+                    await context.sendActivity({type: ActivityTypes.Typing});
+                    await timeout(2000);
                     await dc.context.sendActivity(`Keep in mind, I'm not here to 
                         replace your doctor, so if this is an emergency please call 911.`);
+                    await context.sendActivity({type: ActivityTypes.Typing});
+                    await timeout(2000);
                     await dc.beginDialog(GREETING_DIALOG);
                 }
                 break;
@@ -124,8 +128,12 @@ export class MyBot {
                                 // When activity type is "conversationUpdate" and the member joining the conversation is the bot
                                 // we will send our Welcome Adaptive Card.  This will only be sent once, when the Bot joins conversation
                                 // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
+                                // await context.sendActivity({type: ActivityTypes.Typing});
+                                // await timeout(1500);
                                 const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);
                                 await context.sendActivity({ attachments: [welcomeCard] });
+                                await context.sendActivity({type: ActivityTypes.Typing});
+                                await timeout(2000);
                                 this.logger.logActivity(activity);
                                 await dc.beginDialog(GREETING_DIALOG);
                             }

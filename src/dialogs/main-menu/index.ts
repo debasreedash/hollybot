@@ -20,6 +20,7 @@ export class MainMenuDialog extends WaterfallDialog {
         let prompt = step.options.prompt || `How can I help you today? You can always end this chat by typing 'end chat'`;
         const options: PromptOptions = {
             prompt: prompt,
+            retryPrompt: prompt,
             choices: ['Headache', 'Flu', 'Back Pain', 'Nausea', 'General QnAs']
         };
         return await step.prompt('choicePrompt', options);
@@ -37,9 +38,7 @@ export class MainMenuDialog extends WaterfallDialog {
             case 'nausea':
                 return step.replaceDialog('nauseaDialog');
             case 'general qnas':
-                return step.replaceDialog('qnaDialog', {
-                    kb: 'general_faq',
-                });
+                return step.replaceDialog('qnaDialog', { kb: 'general_faq' });
             default:
                 step.next();
         }
