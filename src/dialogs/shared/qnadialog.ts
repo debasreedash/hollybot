@@ -4,7 +4,7 @@ import { BotConfiguration, IQnAService } from 'botframework-config';
 import { StatePropertyAccessor, ConversationState, TurnContext } from 'botbuilder';
 
 const QNA_CONFIGURATION = 'headacheKB';
-const QNA_CONFIDENCE_THRESHOLD = 0.5;
+const QNA_CONFIDENCE_THRESHOLD = 0.50;
 
 interface QnADialogOptions {
     kb: string,

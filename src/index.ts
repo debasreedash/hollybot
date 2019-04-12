@@ -109,6 +109,11 @@ server.get('/env.js', (req, res) => {
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         // Route to main dialog.
-        await myBot.onTurn(context);
+        try {
+            await myBot.onTurn(context);
+        }
+        catch (e) {
+            console.log('on turn error', e);
+        }
     });
 });

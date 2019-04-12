@@ -90,7 +90,8 @@ export class HeadacheDialog extends WaterfallDialog {
 
     private handleQna = async (step: WaterfallStepContext) => {
         return await step.replaceDialog('qnaDialog', {
-            helpLink: `You can also find more information on [Everyday Health](https://www.everydayhealth.com/headache-migraine/fast-headache-relief.aspx)`
+            helpLink: `You can also find more information on [Everyday Health](https://www.everydayhealth.com/headache-migraine/fast-headache-relief.aspx)`,
+            kb: 'headacheKB'
         });
     }
 
