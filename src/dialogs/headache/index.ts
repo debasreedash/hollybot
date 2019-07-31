@@ -16,7 +16,6 @@ export class HeadacheDialog extends WaterfallDialog {
         this.addStep(this.handleHeadacheSymptom.bind(this));
         this.addStep(this.didThatHelpPrompt.bind(this));
         this.addStep(this.helpHandler.bind(this));
-        this.addStep(this.handleQna.bind(this));
     }
 
     private rankPainCard = async (step: WaterfallStepContext) => {
@@ -61,7 +60,8 @@ export class HeadacheDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.SINUS_RESPONSE);
                 break;
             case 'not sure':
-                return await step.replaceDialog('qnaDialog', { kb: 'headacheKB' });
+                await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
+                return await step.replaceDialog('feedbackDialog');
         }
         return await step.next();
     }
@@ -77,22 +77,12 @@ export class HeadacheDialog extends WaterfallDialog {
 
     private helpHandler = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
-        switch (result) {
-            case 'yes':
-                return await step.replaceDialog('mainMenuDialog');
-            case 'no':
-                return await step.next();
-            default:
-                await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
-                return await step.replaceDialog('mainMenuDialog');
+        if (result === 'yes') {
+            return await step.replaceDialog('mainMenuDialog');
+        } else {
+            await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
+            return await step.replaceDialog('mainMenuDialog');
         }
-    }
-
-    private handleQna = async (step: WaterfallStepContext) => {
-        return await step.replaceDialog('qnaDialog', {
-            helpLink: `You can also find more information on [Everyday Health](https://www.everydayhealth.com/headache-migraine/fast-headache-relief.aspx)`,
-            kb: 'headacheKB'
-        });
     }
 
 }

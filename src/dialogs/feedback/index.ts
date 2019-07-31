@@ -54,7 +54,7 @@ export class FeedbackDialog extends WaterfallDialog {
                 await step.context.sendActivity(responses.WILL_DO_BETTER);
                 break;
         }
-        this.logger.logUserFeedback(step.context, step.result.value);
+        //this.logger.logUserFeedback(step.context, step.result.value);
         return await step.cancelAllDialogs();
     }
 }

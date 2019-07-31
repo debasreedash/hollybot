@@ -81,8 +81,8 @@ const adapter = new BotFrameworkAdapter({
     appPassword: endpointConfig.appPassword || process.env.microsoftAppPassword,
 });
 
-const logger = new ChatLogger(botConfig);
-adapter.use(new TranscriptLoggerMiddleware(logger));
+//const logger = new ChatLogger(botConfig);
+//adapter.use(new TranscriptLoggerMiddleware(logger));
 
 // Catch-all for errors.
 adapter.onTurnError = async (context, error) => {

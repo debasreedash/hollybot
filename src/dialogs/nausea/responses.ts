@@ -3,6 +3,7 @@ export const responses = {
     ALCOHOL_CONSUMPTION_RESPONSE: `Have a glass of lemon infused water or electrolyte replacement drink such as Gatorade`,
     LARGE_MEAL_RESPONSE: `Sit in front of a fan, or open window, and try acupressure. Choose a hand, with your thumb
         (on your other hand) press down an inch below your wrist for one minute. Switch hands and do the same`,
+    CANNOT_FIND_SOLUTION: `Looks like I don't have much information for you right now. Check with me later!`,
     COLD_COMPRESS_RESPONSE: `Try putting a cold compress on the back of your neck`,
     MEDICATION_RESPONSE: `Consider taking peppermint capsules, vitamin B6, or anti-nausea medication. Speak to 
         your doctor to decide what's best for you.`,

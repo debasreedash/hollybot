@@ -96,7 +96,8 @@ export class MyBot {
                         await dc.cancelAllDialogs();
                     }
                 }
-
+                const results = await dc.continueDialog();
+                console.log('results', results);
                 await dc.continueDialog();
                 break;
 
@@ -134,7 +135,7 @@ export class MyBot {
                                 await context.sendActivity({ attachments: [welcomeCard] });
                                 await context.sendActivity({type: ActivityTypes.Typing});
                                 await timeout(2000);
-                                this.logger.logActivity(activity);
+                                //this.logger.logActivity(activity);
                                 await dc.beginDialog(GREETING_DIALOG);
                             }
                         }

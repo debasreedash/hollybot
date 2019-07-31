@@ -37,8 +37,6 @@ export class MainMenuDialog extends WaterfallDialog {
                 return step.replaceDialog('backPainDialog');
             case 'nausea':
                 return step.replaceDialog('nauseaDialog');
-            case 'general qnas':
-                return step.replaceDialog('qnaDialog', { kb: 'general_faq' });
             default:
                 step.next();
         }

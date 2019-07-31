@@ -1,5 +1,6 @@
 import { ComponentDialog, PromptOptions, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
 import { responses } from './responses';
+import { sharedResponses } from '../shared/shared_responses';
 
 export class FluDialog extends ComponentDialog {
 
@@ -90,8 +91,8 @@ export class FluDialog extends ComponentDialog {
             case 'yes':
                 return await step.replaceDialog('mainMenuDialog');
             case 'no':
-                let prompt = `Can you describe what is bothering you?`;
-                return await step.replaceDialog('qnaDialog', {kb: 'fluKB', prompt: prompt});
+                await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
+                return await step.replaceDialog('feedbackDialog');
         }
         return await step.next();
     }

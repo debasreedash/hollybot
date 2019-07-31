@@ -1,5 +1,6 @@
 import { WaterfallDialog, WaterfallStepContext, PromptOptions } from "botbuilder-dialogs";
 import { sharedResponses } from '../shared/shared_responses';
+import { responses } from './responses';
 
 export class BackPainHelpDialog extends WaterfallDialog {
 
@@ -30,8 +31,8 @@ export class BackPainHelpDialog extends WaterfallDialog {
             case 'yes':
                 return await step.next();
             case 'no':
-                let prompt = `I'm sorry let's try this again. Please describe your symptoms.`;
-                return await step.replaceDialog('qnaDialog', { kb: 'backPainNewKB' , prompt: prompt});
+                await step.context.sendActivity(`I'm sorry I wish I could be of more help!`);
+                return await step.replaceDialog('feedbackDialog');
         }
     }
 

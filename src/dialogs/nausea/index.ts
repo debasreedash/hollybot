@@ -44,7 +44,7 @@ export class NauseaDialog extends ComponentDialog {
             choices: ['Yes', 'No']
         };
         return await step.prompt('choicePrompt', options);
-    }
+    };
 
     private handlePregnancyPrompt = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
@@ -58,7 +58,7 @@ export class NauseaDialog extends ComponentDialog {
                 await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
                 return await step.replaceDialog('mainMenuDialog');
         }
-    }
+    };
 
     private didThatHelpPrompt = async (step: WaterfallStepContext<HelpOptions>) => {
         let prompt = 'Did that help?';
@@ -70,7 +70,7 @@ export class NauseaDialog extends ComponentDialog {
             choices: ['Yes', 'No']
         };
         return await step.prompt('choicePrompt', options);
-    }
+    };
 
     private handlePregnancyHelpPrompt = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
@@ -83,7 +83,7 @@ export class NauseaDialog extends ComponentDialog {
             default:
                 return await step.next();
         }
-    }
+    };
 
     private handleSecondPregnancyHelp = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
@@ -100,7 +100,7 @@ export class NauseaDialog extends ComponentDialog {
                 await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
                 return await step.replaceDialog('mainMenuDialog');
         }
-    }
+    };
 
     private alcoholConsumptionPrompt = async (step: WaterfallStepContext) => {
         const options: PromptOptions = {
@@ -108,7 +108,7 @@ export class NauseaDialog extends ComponentDialog {
             choices: ['Yes', 'No']
         };
         return await step.prompt('choicePrompt', options);
-    }
+    };
 
     private handleAlcoholConsumptionPrompt = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();
@@ -141,15 +141,13 @@ export class NauseaDialog extends ComponentDialog {
                 await step.context.sendActivity(responses.LARGE_MEAL_RESPONSE);
                 return await step.replaceDialog('helpDialog');
             case 'no':
-                return await step.replaceDialog('qnaDialog', {
-                    kb: 'nauseaKB' ,
-                    prompt: sharedResponses.DESCRIBE_SYMPTOM
-                });
+                await step.context.sendActivity(responses.CANNOT_FIND_SOLUTION);
+                return await step.replaceDialog('mainMenuDialog');
             default:
                 await step.context.sendActivity(sharedResponses.DO_NOT_KNOW_HOW_TO_HELP);
                 return await step.replaceDialog('mainMenuDialog');
         }
-    }
+    };
 
     private anythingElsePrompt = async (step: WaterfallStepContext) => {
         const options: PromptOptions = {
@@ -157,7 +155,7 @@ export class NauseaDialog extends ComponentDialog {
             choices: ['Yes', 'No']
         };
         return await step.prompt('choicePrompt', options);
-    }
+    };
 
     private handleAnythingElsePrompt = async (step: WaterfallStepContext) => {
         const result = step.result.value.toLowerCase();

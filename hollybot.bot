@@ -18,25 +18,16 @@
             "subscriptionId": "1148612e-02d4-4a1e-8892-3c8bd2a34c38",
             "resourceGroup": "myResourceGroup",
             "endpoint": "https://hollycosmosdb.documents.azure.com:443/",
-            "key": "/Bunn7CPFBx44yCOL+LW2g==!gfID+MLuq2BP3UuuTjNcaOMay3wmqlwr9zUsD368klODgFJsN3TuDyz2w/qUe8O3XwGwxhd7xAR+SKjyayl6Vg2VRsrre4BewiPCL5hrCRUw00Q2z6idJ0VpEKEL8Ucv",
+            "key": "lg1SiIkTgujLBSKKZ3PxyQ==!+b56Mnjjs2xpaUBb6Qd7x+SrZDGUdmYKoGNGIOuaeUWVI34Ltii+N1iWi98Kt8SHzieIEOJel2nfC+WmsdDPoLRgoYrvjt3C3MSOLbcvFpKA0ZxTePkgdOgeTNJjdsh0",
             "database": "hollybot-chatlogs",
             "collection": "hollybot-dev-chatlogs",
             "id": "215"
         },
         {
-            "type": "qna",
-            "name": "backPainNewKB",
-            "kbId": "0b8fdeb0-f12e-4a0a-927a-2de26aee751d",
-            "subscriptionKey": "Sv2cy4hdOLuHb1xIlUYepQ==!JtPbaHS5rXWD2FV4SD30ctXBYf1FuLfkrVJgZ2aYyUb/KLUaKlZ2JAWHxDi/5uOc",
-            "endpointKey": "F6DjUxFeUb+sBz5MFCTRKw==!xW9/gL7UHO3dSYIgdRncuqUGFEkOUZ7n0iofghDUaLvT/ZtrS98MPBUHzMjS6x+Z",
-            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
-            "id": "253"
-        },
-        {
             "type": "endpoint",
             "name": "production",
             "appId": "dae89472-eadb-4fb5-9a70-2dcd536645e0",
-            "appPassword": "Huf0ozAyPNriDKhv44acdQ==!WtwlwYadqQXTVXMAXwo6gKfl44tWQwQy35m0n06EZ0w=",
+            "appPassword": "sGip7087KvORKc0r8DgmSA==!J/CRizAk+7ltf47GRjwGaQXIZ76yWn4uwnmy7kcDvqw=",
             "endpoint": "https://myhollybot.azurewebsites.net/api/messages",
             "id": "228",
             "commands": [],
@@ -155,7 +146,7 @@
             "subscriptionId": "1148612e-02d4-4a1e-8892-3c8bd2a34c38",
             "resourceGroup": "myResourceGroup",
             "endpoint": "https://hollycosmosdb.documents.azure.com:443/",
-            "key": "IO1hn9TswVdXiGI6FyARqA==!Qk86Se4HcXjreZXipCWwk7n8s2j8HG6srO0TXOphTN+APAzZz+huQYVCF6E4FgzWgebQXVIskZT6bLtnLZQXbPB/ZPdnjsOaadphr0HRs4X2SkO3EswjSQp+H7aoCTku",
+            "key": "FSlZjipDICbZ3pLzkU9UYg==!SsKet3Ck0hn0KYq2qzJO3L0Vb5gtY2XDNIDGLlXmnhxj7dovltsfAfpeqln/XwAnmiW2YN3Hgi3JwPiDpmSLUE6XoC9vdS76nKWQrCBDn8V10rbabkW5qplOiBsefW8E",
             "database": "hollybot-chatlogs",
             "collection": "hollybot-prod-chatlogs",
             "id": "111"
@@ -163,38 +154,38 @@
         {
             "type": "qna",
             "name": "nauseaKB",
-            "kbId": "17a1b2d6-a4b3-4e37-b7bc-526fde5e2795",
-            "subscriptionKey": "KJIFjdNjFIyWKYQOtT158w==!L8eYSwRzXgEEVJ4HMg2f7iWewe/dQcc+NDgO+xk3sS94inOy793rgrp8Dn6JwOht",
-            "endpointKey": "sbPoVfyg9LtpesCWr0/9QA==!0BqZKZa1ktCc1Phlt1qLdG8ZfskhNi+Feg0fgzXt0Tmt803PIwtUG2syCepguXRr",
-            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
-            "id": "42"
+            "kbId": "46bed33e-d47b-4d7c-8a11-e371d78584e2",
+            "subscriptionKey": "QbOvJKl2N9WgYXWDbBdLBg==!NXWB6J27QUPTyQ8jX7mI7CYUgGgHUjfZgW0kgDXH+6QHbr3ffQnTBGxaLJALDII4",
+            "endpointKey": "0oKEuJWsW+iY561dn2msvw==!ksmKcwX1ZdGgAB1WJewJOcBQwIwoo3UNhLS6HHy+rK9qGz2O+MNTdAoOwgen/TKW",
+            "hostname": "https://hollykb.azurewebsites.net/qnamaker",
+            "id": "101"
         },
         {
             "type": "qna",
-            "name": "fluKB",
-            "kbId": "61e0387a-7f24-4de5-b122-516fae444f40",
-            "subscriptionKey": "JQJBRrbECcdXr8syW45leQ==!Ugqpc5RJB5MmM3+ck/B5hoH4+Mg2mGx83trjfaBSboVQm7g97fIrObaL2kNdiWXl",
-            "endpointKey": "zyA3OclHkD+lgiHzqejT+w==!4f78yvepkhSfbCB4bgckZlEq5RaHKPtNLtmSmpqMVYN1hM9GdLUNz8NNQQcOGM19",
-            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
-            "id": "110"
+            "name": "backPainNewKB",
+            "kbId": "b62508bd-92a5-45d6-9dd4-98adbeabcaae",
+            "subscriptionKey": "ECk006E8ZRJ72tbh+sMSOg==!HeKC2CXACBeblFRfLVYn43XwjUd32wDUyUgj8jM+e0aIGjTntN+oMTA6NYaHHwDL",
+            "endpointKey": "AsW+Kmd9HmUJHh79aeDuaA==!RJAeK6hKcqRsUgHcNLjIAQzMfo6ZhGlH931xeBLSU5df4YXfT25PDSm1MUG3aMGc",
+            "hostname": "https://hollykb.azurewebsites.net/qnamaker",
+            "id": "104"
         },
         {
             "type": "qna",
             "name": "headacheKB",
-            "kbId": "dba86f63-facc-4387-919c-76dcb584873c",
-            "subscriptionKey": "GcSbXc5DQSVP7C7wkpfUSA==!GsmPfOEmlO+t9boeCAR+GlPbkDzCM/KwikpoAr0t10iTBxaqyWReC2jTHpEaXAiC",
-            "endpointKey": "2ZG2k1KqNqa8Cj4Py2HPhQ==!6hL8OK/pkSIl8HHZvSDr5+2bNjylrKJcEnsnKGRGo2NLI06JebPlhwVZBgb9O+tg",
-            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
-            "id": "4"
+            "kbId": "e2380b86-6b5a-4c2e-90ac-d3570e7b2141",
+            "subscriptionKey": "1FvLxYcPeVh2u6PmUKNzoA==!ntmRdm1hD3kDJ0CRo1hHtGnGsDVP3/0gTLisb9ENZ02qNNYZ73M/mPytZB2L5YeY",
+            "endpointKey": "mGO2y8lENz6Rga0tMkaRYQ==!ihmvUuvs49lIr0YntZYV64PKWe95pU8Yti9apctr3mA1e8KqHvTVg9uQA4ZTc6oh",
+            "hostname": "https://hollykb.azurewebsites.net/qnamaker",
+            "id": "70"
         },
         {
             "type": "qna",
-            "name": "hollySmallTalkKB",
-            "kbId": "95faaf0e-a221-479b-951b-ac303414a060",
-            "subscriptionKey": "3137NkfIPmPwyNj/6yQXow==!N4aBXavO7OlI84pyhoBiHYbMyHsRUh6GF9o7xFgz0CdS4rpPIAYwipdhrFeA1Fj0",
-            "endpointKey": "WEgnkyGSL5RkWi+U6gTo1w==!TjGgwRBpkVrmdZu3EKOS+u8rhdBoAFQT2s6V+GJ+lI53oWwpTduudni3HDvpxXC4",
-            "hostname": "https://hollybotkb.azurewebsites.net/qnamaker",
-            "id": "140"
+            "name": "fluKB",
+            "kbId": "d19dac23-6161-4274-9d3a-28710d3a20ea",
+            "subscriptionKey": "+VmMP1WaOD933T2yjuJ0+w==!sMweNrtZD3TXecBHQJyOwbURDcz+ZuyLvYYZm3WMQ+LiNdEOIJwbhtrHvfcyoKnZ",
+            "endpointKey": "Xsn6XtU9wZraGuKwmqIpDQ==!1qiXbLcBkODCNwQPoOZ/YgRKR/zta5XQZMs3a4axLwNVObOrPP7Fd5sFe6sptflZ",
+            "hostname": "https://hollykb.azurewebsites.net/qnamaker",
+            "id": "42"
         }
     ],
     "padlock": "BzbmMnygh94MlDGYdgTW4Q==!sxeGoM0G5MH4aj2hzGZ4fjUzsuQ0xp3HavnAQHpNbpa3UZfwV+4XEfw0EWIYVMm7",
