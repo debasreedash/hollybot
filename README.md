@@ -9,6 +9,7 @@ This bot has been created using [Bot Framework][1], it shows how to create a sim
     # determine node version
     node --version
     ```
+- Bot Framework emulator is needed to run this locally    
 
 # To run the bot
 - Install modules
