@@ -14,17 +14,17 @@ This bot has been created using [Bot Framework][1], it shows how to create a sim
 # To run the bot
 - Install modules
     ```bash
-    npm install
+    npm install or yarn
     ```
 - Start the bot
     ```bash
-    npm start
+    npm start or yarn start
     ```
     
 # Env Vars
 ```
 botFilePath='./hollybot.bot' REQUIRED
-botFileSecret OPTIONAL
+botFileSecret=cM/ZssR88TBWXxke0/Ep4kWwUNyg1gt0jUf9dPW8Z6c=
 ENVIRONMENT=dev REQUIRED, default dev
 DIRECTLINE_SECRET OPTIONAL
 NODE_ENV OPTIONAL, default development  
