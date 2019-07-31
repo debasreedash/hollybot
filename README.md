@@ -19,6 +19,15 @@ This bot has been created using [Bot Framework][1], it shows how to create a sim
     ```bash
     npm start
     ```
+    
+# Env Vars
+```
+botFilePath='./hollybot.bot' REQUIRED
+botFileSecret OPTIONAL
+ENVIRONMENT=dev REQUIRED, default dev
+DIRECTLINE_SECRET OPTIONAL
+NODE_ENV OPTIONAL, default development  
+```  
 
 # Testing the bot using Bot Framework Emulator **v4**
 [Bot Framework Emulator][5] is a desktop application that allows bot developers to test and debug their bots on localhost or running remotely through a tunnel.
